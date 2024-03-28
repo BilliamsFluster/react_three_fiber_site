@@ -11,8 +11,9 @@ import About from './components/about'
 import Portfolio from './components/portfolio'
 import Hero from './components/hero'
 import Model from './components/model'
-import { DirectionalLightHelper, Object3D, SpotLightHelper } from 'three'
+import { DirectionalLightHelper, Object3D, SpotLightHelper, Vector3 } from 'three'
 import { useControls } from 'leva'
+import SimpleSpotLightWithTarget from './threeComponents/SimpleSpotLight'
 
 import NightTimeProcessing from './components/nightTimeProcessing'
 
@@ -44,60 +45,6 @@ const Cube = ({position, size, color})=>
   )
 }
 
-// Custom SpotLight component that accepts a target position
-const SpotLightWithTarget = ({ position, targetPosition, color, intensity, angle, penumbra }) => {
-  const lightRef = useRef();
-  const { scene } = useThree();
-  const [canRender, setCanRender] = useState(false);
-  const { spotlightPosition, spotlightTargetPosition, spotlightColor, spotlightIntensity, spotlightAngle, spotlightPenumbra } = useControls("SpotLight",{
-    spotlightColor: { value: "white", label: 'Light Color', render: canRender },
-    spotlightIntensity: { value: 0.5, min: 0, max: 20, step: 0.1, label: 'Light Intensity', render: canRender },
-    spotlightPosition: { value: { x: 0, y: 5, z: 5 }, label: 'Light Position', render: canRender },
-    spotlightTargetPosition: { value: { x: 0, y: 0, z: 0 }, label: 'Light Target Position', render: canRender },
-    spotlightAngle: { value: Math.PI / 3, min: 0, max: Math.PI, step: 0.01, label: 'Light Angle' , render: canRender},
-    spotlightPenumbra: { value: 0.1, min: 0, max: 1, step: 0.01, label: 'Light Penumbra', render: canRender },
-  });
-  useEffect(() => {
-    if (lightRef.current) {
-      const helper = new SpotLightHelper(lightRef.current);
-      scene.add(helper);
-      return () => scene.remove(helper); // Cleanup
-    }
-  }, [scene, lightRef]); // Re-run if these dependencies change
-
-  useEffect(() => {
-    // When the component mounts or updates, adjust the target's position
-    if (lightRef.current) {
-      // Ensure the light has a target; if not, create one
-      if (!lightRef.current.target) {
-        lightRef.current.target = new Object3D();
-        scene.add(lightRef.current.target);
-      }
-      lightRef.current.target.position.set(spotlightTargetPosition.x, spotlightTargetPosition.y, spotlightTargetPosition.z);
-    }
-  
-    // Cleanup function to remove the target from the scene when the component unmounts
-    return () => {
-      if (lightRef.current && lightRef.current.target) {
-        scene.remove(lightRef.current.target);
-      }
-    };
-  }, [spotlightTargetPosition, scene]); // Corrected to use spotlightTargetPosition
-  useEffect(()=>{
-    console.log(spotlightTargetPosition);
-  })
-  
-  return (
-    <spotLight
-      ref={lightRef}
-      position={position}
-      color={spotlightColor}
-      intensity={intensity}
-      angle={angle}
-      penumbra={penumbra}
-    />
-  );
-};
 const CameraController = () =>
 {
   const {camera, gl} = useThree();
@@ -112,28 +59,96 @@ const CameraController = () =>
       };
     },
     [camera,gl]
-  );
-  return null;
+    );
+    return null;
 };
-
-const Scene = () =>{
-  //const streetLight = useRef();
-  const spotLight = useRef();
+const SpotLightWithTarget = ({
+  initialPosition = [0, 0, 0],
+  initialTargetPosition = [0, 0, 0],
+  color = '#ffffff',
+  intensity = 1,
+  angle = Math.PI / 4,
+  penumbra = 0,
+  active = true,
+}) => {
+  const lightRef = useRef();
+  const helperRef = useRef(); // Use ref to hold the helper instance
   const { scene } = useThree();
-  /*const { lightPosition, lightTargetPosition, lightColor, lightIntensity } = useControls({
-    lightColor: { value: "white", label: 'Light Color' },
-    lightIntensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'Light Intensity' },
-    lightPosition: { value: { x: 0, y: 5, z: 5 }, label: 'Light Position' },
-    lightTargetPosition: { value: { x: 0, y: 0, z: 0 }, label: 'Light Target Position' },
-  });*/
 
-  
+  // LEVA controls setup
+  const { lightColor, lightIntensity, lightAngle, lightPenumbra, position, targetPosition } = useControls("Spotlight", {
+    lightColor: { value: color, label: 'Light Color' },
+    lightIntensity: { value: intensity, min: 0, max: 20, step: 0.1, label: 'Light Intensity' },
+    lightAngle: { value: angle, min: 0, max: Math.PI, step: 0.01, label: 'Light Angle' },
+    lightPenumbra: { value: penumbra, min: 0, max: 1, step: 0.01, label: 'Light Penumbra' },
+    position: { value: initialPosition, label: 'Position', step: 0.1 },
+    targetPosition: { value: initialTargetPosition, label: 'Target Position', step: 0.1 },
+  }, [active]);
 
+  useEffect(() => {
+    // Ensure the spotlight and its target are properly updated
+    if (lightRef.current) {
+      lightRef.current.position.set(...position);
+      lightRef.current.target.position.set(...targetPosition);
+      lightRef.current.target.updateMatrixWorld(); // Important if the target's position influences other calculations
   
+      // Now handle the helper
+      if (helperRef.current) {
+        // First, remove the existing helper to clear it out
+        scene.remove(helperRef.current);
+      }
+  
+      // Recreate the helper and attach it to the updated spotlight
+      helperRef.current = new SpotLightHelper(lightRef.current);
+      scene.add(helperRef.current);
+  
+      // This forces a re-render of the helper, ensuring it matches the spotlight's current state
+      helperRef.current.update();
+    }
+  
+    // Cleanup function to remove the helper when the component unmounts or when position changes
+    return () => {
+      if (helperRef.current) {
+        scene.remove(helperRef.current);
+      }
+    };
+  }, [scene, position, targetPosition, lightRef]);
 
-  //useHelper(streetLight, DirectionalLightHelper);
+  useEffect(() => {
+    if (lightRef.current) {
+      lightRef.current.target = new Object3D();
+      console.log("TargetPosition: ", targetPosition);
+      lightRef.current.target.position.set(...targetPosition);
+      console.log("Position: ", position);
+      scene.add(lightRef.current.target);
+      
+      // Update the helper explicitly if positions change
+      if (helperRef.current) {
+        helperRef.current.update();
+      }
+    }
+
+    return () => {
+      if (lightRef.current && lightRef.current.target) {
+        scene.remove(lightRef.current.target);
+      }
+    };
+  }, [targetPosition, position, scene]);
+
+  return (
+    <spotLight
+      ref={lightRef}
+      position={new Vector3(...position)} // Ensure position is spread into Vector3
+      color={lightColor}
+      intensity={lightIntensity}
+      angle={lightAngle}
+      penumbra={lightPenumbra}
+    />
+  );
+};
   
-  
+  const Scene = () =>{
+    
   return (
     <>
       <CameraController/>
@@ -145,18 +160,40 @@ const Scene = () =>{
 
         
         
-      <SpotLightWithTarget
-        position={[-0.12, 2.77, 3.16]}
-        targetPosition = {[2.202,-7.628,0.009]}
+      <SimpleSpotLightWithTarget
+        initialPosition={[-0.12, 2.77, 3.16]}
+        initialTargetPosition = {[2.202,-7.628,0.009]}
         intensity={10}
         color={'#FFDE56'}
         angle={0.6}
+        penumbra={0.4} 
+        active = {false}
+      />
+
+      <SpotLightWithTarget
+        initialPosition={[-3.12, 3.07, 2.66]}
+        initialTargetPosition = {[0.2,-5.128,-0.49]}
+        intensity={10}
+        color={'#FFDE56'}
+        angle={1.45}
         penumbra={0.4}
+        active = {true}
         
       />
+
+      
         
            
-      <Model model = {"../models/cyberScene.glb"} position = {[0,0,0]} rotation={[0,-Math.PI/6,0]}/>
+<Model 
+  model="../models/cyberScene.glb"
+  materialAdjustments={{
+    'StreetLight': { color: '#FFDE56', emissive: '#000000', emissiveIntensity: 2, metalness: 0.5, roughness: 0.4 },
+    'WindowPink': { color: '#FF3ECF', emissive: '#111111',emissiveIntensity: 2 },
+  }}
+  position={[0, 0, 0]} 
+  rotation={[0, -Math.PI / 6, 0]}
+/>
+
     </>
   )
 }
