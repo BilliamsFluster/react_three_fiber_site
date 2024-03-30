@@ -10,12 +10,13 @@ import { MeshDistortMaterial, MeshWobbleMaterial, useHelper,  } from '@react-thr
 import About from './components/about'
 import Portfolio from './components/portfolio'
 import Hero from './components/hero'
-import Model from './components/model'
+import SimpleModel from './threeComponents/model'
 import { DirectionalLightHelper, Object3D, SpotLightHelper, Vector3 } from 'three'
 import { useControls } from 'leva'
 import SimpleSpotLightWithTarget from './threeComponents/SimpleSpotLight'
-
+import CameraController from './threeComponents/SimpleCameraController'
 import NightTimeProcessing from './components/nightTimeProcessing'
+import SimpleTextModel from './threeComponents/TextModel'
 
 
 
@@ -45,23 +46,7 @@ const Cube = ({position, size, color})=>
   )
 }
 
-const CameraController = () =>
-{
-  const {camera, gl} = useThree();
-  useEffect(
-    ()=>{
-      const controls = new OrbitControls(camera, gl.domElement);
-      controls.minDistance = 5;
-      controls.maxDistance = 20;
-      controls.enableZoom = true;
-      return() =>{
-        controls.dispose();
-      };
-    },
-    [camera,gl]
-    );
-    return null;
-};
+
 const SpotLightWithTarget = ({
   initialPosition = [0, 0, 0],
   initialTargetPosition = [0, 0, 0],
@@ -170,29 +155,59 @@ const SpotLightWithTarget = ({
         active = {false}
       />
 
-      <SpotLightWithTarget
+      <SimpleSpotLightWithTarget
         initialPosition={[-3.12, 3.07, 2.66]}
         initialTargetPosition = {[0.2,-5.128,-0.49]}
         intensity={10}
         color={'#FFDE56'}
         angle={1.45}
         penumbra={0.4}
-        active = {true}
+        
         
       />
 
       
         
            
-<Model 
+<SimpleModel 
   model="../models/cyberScene.glb"
-  materialAdjustments={{
-    'StreetLight': { color: '#FFDE56', emissive: '#000000', emissiveIntensity: 2, metalness: 0.5, roughness: 0.4 },
-    'WindowPink': { color: '#FF3ECF', emissive: '#111111',emissiveIntensity: 2 },
-  }}
+  
   position={[0, 0, 0]} 
   rotation={[0, -Math.PI / 6, 0]}
 />
+<SimpleTextModel model={'../models/About.glb'} position = {[-2.863,4.025,1.705]} rotation = {[0,-0.543,0]}/>
+<SimpleSpotLightWithTarget
+        initialPosition={[0.537,4.025,1.705]}
+        initialTargetPosition = {[-6.662,4.324,-1.095]}
+        intensity={10}
+        color={'red'}
+        angle={0.6}
+        penumbra={1} 
+        
+        
+      />
+<SimpleTextModel model = {'../models/Portfolio.glb'} position = {[1.082,2.495,-1.589]} rotation = {[3.14,-1.045,3.14]} />
+<SimpleSpotLightWithTarget
+        initialPosition={[1.382,2.895,1.111]}
+        initialTargetPosition = {[17.881,1.795,-26.289]}
+        intensity={10}
+        color={'white'}
+        angle={0.94}
+        penumbra={1}
+        
+        
+      />
+<SimpleTextModel model = {'../models/Contact.glb'}  position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
+<SpotLightWithTarget
+        initialPosition={[1.537,7.724,3.105]}
+        initialTargetPosition = {[49.236,11.425,-151.2]}
+        intensity={20}
+        color={'#2EDCDA'}
+        angle={0.6}
+        penumbra={1} 
+        active = {true}
+        
+      />
 
     </>
   )
