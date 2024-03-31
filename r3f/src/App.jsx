@@ -20,6 +20,7 @@ import CameraController from './threeComponents/SimpleCameraController'
 import NightTimeProcessing from './components/nightTimeProcessing'
 import SimpleTextModel from './threeComponents/TextModel'
 import { DisplayProvider, useDisplay } from './threeComponents/DisplayContextManager'
+import Contact from './components/contact';
 
 
 
@@ -201,7 +202,7 @@ const SpotLightWithTarget = ({
         
         
       />
-<SimpleTextModel model = {'../models/Contact.glb'}   position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
+<SimpleTextModel model = {'../models/Contact.glb'} componentToShow={Contact}  position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
 <SpotLightWithTarget
         initialPosition={[1.537,7.724,3.105]}
         initialTargetPosition = {[49.236,11.425,-151.2]}
@@ -296,8 +297,16 @@ const DisplayedComponent = ({ hideOverlay, setControlsEnabled }) => {
 
   // Enhanced hideOverlay to include context's hideComponent for managing visibility
   const combinedHideOverlay = () => {
-    hideOverlay();  // Intended to re-enable scene controls
-    hideComponent(); // Ensures the overlay is hidden
+    // Start the fade-out animation
+    gsap.to('.overlay-content', {
+      autoAlpha: 0, // Target opacity
+      duration: 0.5,
+      onComplete: () => {
+        // This code executes after the fade-out animation completes
+        hideOverlay();  // Intended to re-enable scene controls
+        hideComponent(); // Actually hides the overlay component
+      }
+    });
   };
 
   return (
