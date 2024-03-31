@@ -1,14 +1,16 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useGLTF, TransformControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
+import { useDisplay } from './DisplayContextManager';
 
-const SimpleTextModel = ({ model, enableTransform = false, ...props }) => {
+const SimpleTextModel = ({ model, enableTransform = false, componentToShow, ...props }) => {
   const groupRef = useRef();
   const transformRef = useRef();
   const [mode, setMode] = useState('translate'); // State to track current mode
   const { scene } = useGLTF(model);
   const { camera, gl } = useThree();
+  const { showComponent } = useDisplay(); // Use the context
 
   useGLTF.preload(model);
 
@@ -40,6 +42,11 @@ const SimpleTextModel = ({ model, enableTransform = false, ...props }) => {
       object.onPointerOut = null;
     };
   }, []);
+
+  
+  const handleClick = () => {
+    showComponent(componentToShow); 
+  };
 
   return (
     <>
@@ -78,6 +85,7 @@ const SimpleTextModel = ({ model, enableTransform = false, ...props }) => {
             e.stopPropagation();
             groupRef.current.onPointerOut();
           }}
+          onClick={handleClick}
         />
       )}
     </>

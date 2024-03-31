@@ -1,6 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import { useFrame, useThree, useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import Lenis from '@studio-freight/lenis';
+import { gsap } from 'gsap';
 
 import './App.css'
 import { useRef, useState, useEffect} from 'react'
@@ -17,6 +19,7 @@ import SimpleSpotLightWithTarget from './threeComponents/SimpleSpotLight'
 import CameraController from './threeComponents/SimpleCameraController'
 import NightTimeProcessing from './components/nightTimeProcessing'
 import SimpleTextModel from './threeComponents/TextModel'
+import { DisplayProvider, useDisplay } from './threeComponents/DisplayContextManager'
 
 
 
@@ -132,11 +135,12 @@ const SpotLightWithTarget = ({
   );
 };
   
-  const Scene = () =>{
+  const Scene = ({ controlsEnabled }) =>{
     
   return (
     <>
-      <CameraController/>
+    
+      <CameraController />
       
       
       
@@ -175,7 +179,7 @@ const SpotLightWithTarget = ({
   position={[0, 0, 0]} 
   rotation={[0, -Math.PI / 6, 0]}
 />
-<SimpleTextModel model={'../models/About.glb'} position = {[-2.863,4.025,1.705]} rotation = {[0,-0.543,0]}/>
+<SimpleTextModel model={'../models/About.glb'} componentToShow={About} position = {[-2.863,4.025,1.705]} rotation = {[0,-0.543,0]}/>
 <SimpleSpotLightWithTarget
         initialPosition={[0.537,4.025,1.705]}
         initialTargetPosition = {[-6.662,4.324,-1.095]}
@@ -186,7 +190,7 @@ const SpotLightWithTarget = ({
         
         
       />
-<SimpleTextModel model = {'../models/Portfolio.glb'} position = {[1.082,2.495,-1.589]} rotation = {[3.14,-1.045,3.14]} />
+<SimpleTextModel model = {'../models/Portfolio.glb'} componentToShow={Portfolio} position = {[1.082,2.495,-1.589]} rotation = {[3.14,-1.045,3.14]} />
 <SimpleSpotLightWithTarget
         initialPosition={[1.382,2.895,1.111]}
         initialTargetPosition = {[17.881,1.795,-26.289]}
@@ -197,7 +201,7 @@ const SpotLightWithTarget = ({
         
         
       />
-<SimpleTextModel model = {'../models/Contact.glb'}  position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
+<SimpleTextModel model = {'../models/Contact.glb'}   position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
 <SpotLightWithTarget
         initialPosition={[1.537,7.724,3.105]}
         initialTargetPosition = {[49.236,11.425,-151.2]}
@@ -208,19 +212,53 @@ const SpotLightWithTarget = ({
         active = {true}
         
       />
-
+    
     </>
   )
 }
 
 const App = () => {
+  const [controlsEnabled, setControlsEnabled] = useState(true);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
+  const hideOverlay = () => {
+    setControlsEnabled(true); // Re-enable scene controls
+    setIsOverlayVisible(false); // Hide the overlay
+  };
+  useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.1,
+      smooth: true,
+      direction: 'vertical',
+    });
   
+    function raf() {
+      lenis.raf();
+      requestAnimationFrame(raf);
+    }
+  
+    raf();
+    
+    return () => cancelAnimationFrame(raf);
+  }, []);
+   // Adjust the pointer events on the canvas container based on controlsEnabled
+   useEffect(() => {
+    const canvasContainer = document.getElementById('canvas-container');
+    if (canvasContainer) {
+      canvasContainer.style.pointerEvents = controlsEnabled ? 'auto' : 'none';
+    }
+  }, [controlsEnabled]);
   return(
     <>
-      <div className='landingSection'>
+      <div className='parent-container'>
+        <DisplayProvider>
+
         
+
+        <div id = 'canvas-container'>
         <Canvas>
-          <Scene/>
+          <Scene controlsEnabled={controlsEnabled}/>
+          
           <NightTimeProcessing
         nighttimeIntensity={0}
         fogNear={0}
@@ -229,13 +267,46 @@ const App = () => {
       />
           
         </Canvas>
-        
+        </div>
+        <DisplayedComponent 
+        setControlsEnabled={setControlsEnabled}
+        hideOverlay={hideOverlay} // Pass down the hideOverlay function
+        isVisible={isOverlayVisible}/>
+        </DisplayProvider>
       </div>
-      <About/>
-      <Portfolio/>
+      
+      
       </>
       
     )
 }
+
+const DisplayedComponent = ({ hideOverlay, setControlsEnabled }) => {
+  const { displayComponent: Component, isVisible, hideComponent } = useDisplay();
+
+  useEffect(() => {
+    // Toggle the visibility with GSAP animations based on isVisible
+    gsap.to('.overlay-content', { autoAlpha: isVisible ? 1 : 0, duration: 0.5 });
+
+    // Adjust pointer events and scene interaction based on visibility
+    if (isVisible) {
+      setControlsEnabled(false); // Disable scene interactions when overlay is visible
+    }
+  }, [isVisible, setControlsEnabled]);
+
+  // Enhanced hideOverlay to include context's hideComponent for managing visibility
+  const combinedHideOverlay = () => {
+    hideOverlay();  // Intended to re-enable scene controls
+    hideComponent(); // Ensures the overlay is hidden
+  };
+
+  return (
+    <div className="overlay-content" style={{ opacity: isVisible ? 1 : 0, pointerEvents: isVisible ? 'auto' : 'none' }}>
+      {/* Pass combinedHideOverlay down to the Component */}
+      {Component ? <Component hideOverlay={combinedHideOverlay} /> : null}
+    </div>
+  );
+};
+
 
 export default App
