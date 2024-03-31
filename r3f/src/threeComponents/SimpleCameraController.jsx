@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const CameraController = () => {
+const CameraController = ({}) => {
   const { camera, gl } = useThree();
   const [controlsEnabled, setControlsEnabled] = useState(true);
 
