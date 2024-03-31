@@ -1,12 +1,10 @@
-const Portfolio = ({hideOverlay}) =>
-{
+const Contact = ({hideOverlay}) =>{
     return(
         <>
         <button onClick={hideOverlay}>Back to Scene</button>
-        <h1>Portfolio</h1>
+        <h1>Contact ME</h1>
         </>
     )
-
-    
 }
-export default Portfolio;
+
+export default Contact;
