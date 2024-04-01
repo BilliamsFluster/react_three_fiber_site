@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const CameraController = ({}) => {
+const CameraController = ({enableZoom = true}) => {
   const { camera, gl } = useThree();
   const [controlsEnabled, setControlsEnabled] = useState(true);
 
@@ -10,7 +10,7 @@ const CameraController = ({}) => {
     const controls = new OrbitControls(camera, gl.domElement);
     controls.minDistance = 5;
     controls.maxDistance = 20;
-    controls.enableZoom = true;
+    controls.enableZoom = enableZoom;
     controls.enabled = controlsEnabled; // Use the state to enable/disable
 
     // Function to log the current camera position

@@ -153,34 +153,43 @@ const SpotLightWithTarget = ({
       <SimpleSpotLightWithTarget
         initialPosition={[-0.12, 2.77, 3.16]}
         initialTargetPosition = {[2.202,-7.628,0.009]}
-        intensity={10}
+        intensity={30}
         color={'#FFDE56'}
         angle={0.6}
-        penumbra={0.4} 
-        active = {false}
+        penumbra={1} 
+        canBlink = {true}
       />
 
       <SimpleSpotLightWithTarget
         initialPosition={[-3.12, 3.07, 2.66]}
         initialTargetPosition = {[0.2,-5.128,-0.49]}
-        intensity={10}
+        intensity={20}
         color={'#FFDE56'}
         angle={1.45}
-        penumbra={0.4}
-        
-        
+        penumbra={1}
+        canBlink = {true} 
       />
+
+      <SimpleSpotLightWithTarget
+              initialPosition={[-1,0.5,1.2]}
+              initialTargetPosition = {[0.5,0.6,-1.1]}
+              intensity={50}
+              color={'#FFDE56'}
+              angle={0.98}
+              penumbra={1}
+              
+            />
 
       
         
            
 <SimpleModel 
   model="../models/cyberScene.glb"
-  
+  hdrSrc={'../../hdris/SataraNight.hdr'}
   position={[0, 0, 0]} 
   rotation={[0, -Math.PI / 6, 0]}
 />
-<SimpleTextModel model={'../models/About.glb'} componentToShow={About} position = {[-2.863,4.025,1.705]} rotation = {[0,-0.543,0]}/>
+<SimpleTextModel model={'../models/About.glb'}  componentToShow={About} position = {[-2.863,4.025,1.705]} rotation = {[0,-0.543,0]}/>
 <SimpleSpotLightWithTarget
         initialPosition={[0.537,4.025,1.705]}
         initialTargetPosition = {[-6.662,4.324,-1.095]}
@@ -203,14 +212,14 @@ const SpotLightWithTarget = ({
         
       />
 <SimpleTextModel model = {'../models/Contact.glb'} componentToShow={Contact}  position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
-<SpotLightWithTarget
+<SimpleSpotLightWithTarget
         initialPosition={[1.537,7.724,3.105]}
         initialTargetPosition = {[49.236,11.425,-151.2]}
         intensity={20}
         color={'#2EDCDA'}
         angle={0.6}
         penumbra={1} 
-        active = {true}
+        
         
       />
     
@@ -226,22 +235,7 @@ const App = () => {
     setControlsEnabled(true); // Re-enable scene controls
     setIsOverlayVisible(false); // Hide the overlay
   };
-  useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smooth: true,
-      direction: 'vertical',
-    });
   
-    function raf() {
-      lenis.raf();
-      requestAnimationFrame(raf);
-    }
-  
-    raf();
-    
-    return () => cancelAnimationFrame(raf);
-  }, []);
    // Adjust the pointer events on the canvas container based on controlsEnabled
    useEffect(() => {
     const canvasContainer = document.getElementById('canvas-container');
