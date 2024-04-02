@@ -4,7 +4,7 @@ import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { useDisplay } from './DisplayContextManager';
 
-const SimpleTextModel = ({ model, enableTransform = false, componentToShow, ...props }) => {
+const SimpleTextModel = ({ model, enableTransform = false, canShowComponent = true, componentToShow, ...props }) => {
   const groupRef = useRef();
   const transformRef = useRef();
   const [mode, setMode] = useState('translate'); // State to track current mode
@@ -12,8 +12,39 @@ const SimpleTextModel = ({ model, enableTransform = false, componentToShow, ...p
   const { camera, gl } = useThree();
   const { showComponent } = useDisplay(); // Use the context
 
-  useGLTF.preload(model);
 
+  useEffect(() => {
+    // Define the event handler
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case 'w': // 't' for translate
+          setMode('translate');
+          break;
+        case 'e': // 'r' for rotate
+          setMode('rotate');
+          break;
+        case 'r': // 's' for scale
+          setMode('scale');
+          break;
+        default:
+          break;
+      }
+    };
+  
+    // Attach the event listener
+    window.addEventListener('keydown', handleKeyDown);
+  
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+  
+    
+  useGLTF.preload(model);
+  
+
+  
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -35,6 +66,7 @@ const SimpleTextModel = ({ model, enableTransform = false, componentToShow, ...p
 
     const object = groupRef.current;
     object.onPointerOver = scaleUp;
+    console.log(groupRef.currentc)
     object.onPointerOut = scaleDown;
 
     return () => {
@@ -43,9 +75,16 @@ const SimpleTextModel = ({ model, enableTransform = false, componentToShow, ...p
     };
   }, []);
 
-  
+  const handleTransformChange = useCallback((e) => {
+    if(!groupRef.current) return;
+    console.log("New Position:", groupRef.current.position);
+    console.log("New rotation:", groupRef.current.rotation);
+    console.log("New scale:", groupRef.current.scale);
+    
+  }, []);
   const handleClick = () => {
-    showComponent(componentToShow); 
+    if(canShowComponent)
+      showComponent(componentToShow); 
   };
 
   return (
@@ -56,6 +95,8 @@ const SimpleTextModel = ({ model, enableTransform = false, componentToShow, ...p
           args={[camera, gl.domElement]}
           object={groupRef.current}
           mode={mode}
+          
+          onChange={handleTransformChange}
         >
           <primitive
             object={scene}

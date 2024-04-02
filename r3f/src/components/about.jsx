@@ -14,7 +14,19 @@ const About = ({ hideOverlay }) => {
   const buttonRef = useRef(null);
   const aboutSectionRef = useRef(null);
   const { isVisible } = useDisplay(); // using context to check if the component is visible
+  
 
+  
+
+
+
+
+  useEffect(() => {
+    // Example animation tied to the visibility of the section
+    if (isVisible) {
+      gsap.fromTo(aboutSectionRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power1.out" });
+    }
+  }, [isVisible]);
   
 
 
@@ -58,12 +70,18 @@ const About = ({ hideOverlay }) => {
   return (
     <>
     
-      <div className="about">
+      <div className="page">
+        
         <button ref={buttonRef} onClick={hideOverlay}>
           <h1>WW</h1>
         </button>
-        <div className="aboutFormat">
-          <div className="aboutSection" ref={aboutSectionRef}>
+        
+
+        <div className="Format">
+          <div className="Section" ref={aboutSectionRef}>
+            <div className="aboutMe">
+
+            
             <h1>About Me</h1>
             <p>Hello, my name is <b>William</b> I am a <b>Gameplay Programmer</b> and a <b>Front-End Developer</b>. My interests in both stem from my immense satisfaction 
               from translating thoughts into playable realities.
@@ -106,7 +124,7 @@ const About = ({ hideOverlay }) => {
               </div>
             </div>
             
-            
+            </div>
           </div>
           <div className='aboutModel'>
             <Canvas style={{ width: '100%', height: '100%'}}>
@@ -121,6 +139,7 @@ const About = ({ hideOverlay }) => {
           </div>
         </div>
       </div>
+      
       
     </>
   );

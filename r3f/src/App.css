@@ -2,34 +2,70 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-
+html{
+ 
+}
 html, body, #root .parent-container { 
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  
+  
+  
+  
+  
+  
 }
 #canvas-container { /* This ID should be on the container element for your <Canvas> */
   width: 100vw;
   height: 100vh;
   position: fixed; /* This positions it relative to the viewport */
+  
   top: 0;
   left: 0;
   z-index: 1; /* Ensures it doesn't overlap UI elements like your parameter adjustment interface */
 }
+.scrollable {
+  overflow-y: auto; /* Show scrollbar when overlay is active */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+.notScrollable
+{
+  overflow: hidden;
+}
 /* Ensure the parent of Canvas and DisplayedComponent has a relative positioning */
 .parent-container {
   position: relative;
+  
+  
+}
+/* Customizes the whole scrollbar */
+::-webkit-scrollbar {
+  width: 16px; /* Width of the vertical scrollbar */
+  height: 16px; /* Height of the horizontal scrollbar */
+}
+
+/* Customizes the track (background) of the scrollbar */
+::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom, #333, #000000); /* Example gradient */
+  border-radius: 8px; /* Rounded corners for the track */
+}
+
+/* Customizes the handle (thumb) of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #0650f0, #3023ae); /* Example gradient */
+  border-radius: 8px; /* Rounded corners for the thumb */
 }
 
 /* Style for the overlay content */
 .overlay-content {
-  position: fixed; /* Use fixed to ensure it covers the entire viewport */
-  top: 0;
-  left: 0;
+  position: relative; /* Use fixed to ensure it covers the entire viewport */
+  
+  
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,43 +79,65 @@ html, body, #root .parent-container {
   font-weight: 400;
 }
 
-.about
+
+.page
 {
-  
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+
   background-color: #09192E;
   margin: 0; 
   padding: 0;
-  
 }
-.about button{
+
+.page button{
   background-color: transparent;
   border: none;
 }
-.about button h1{
+
+
+
+.page button h1{
   font-family: "Pacifico", cursive;
   
   
 }
-.aboutFormat{
+
+.Format{
   width: 100vw;
-  height: 100vh;
-  display: flex;
+  height: 100%;
+  display:flex;
   justify-content: center;
   align-items: center;
   margin: 0; 
   padding: 0;
-}
-.aboutSection
-{
-  padding-left: 25vw;
   
-
 }
-.aboutSection b{
+
+.Section
+{
+  justify-content: center;
+  align-items: center;
+  padding-left: 25vw;
+  width: 100%;
+  height:100vh;
+}
+.portfolioContainer{
+  
+  justify-content: center;
+  text-align:center;
+  
+  padding-left: 0vw;
+}
+
+.aboutMe{
+  padding-top: 25vh;
+}
+.Section b{
   color:cyan;
 }
+
+
+
 .aboutSkills
 {
   display: flex;
@@ -90,4 +148,5 @@ html, body, #root .parent-container {
   width: 100%;
   height: 100%;
 }
+
 

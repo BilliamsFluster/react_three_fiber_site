@@ -22,9 +22,9 @@ const CameraController = ({enableZoom = true}) => {
     // Function to set a predefined camera position
     const setCameraPosition = (x, y, z) => {
       camera.position.set(x, y, z);
-      controls.update(); // Important to call this to ensure the controls are aware of the new position
+      controls.update(); 
     };
-    setCameraPosition(1.705,8.3,9.381)
+    setCameraPosition(1.705,8.6,9.381)
 
     // Example of setting the camera to a specific position
     // Uncomment the following line to set the camera position on component mount

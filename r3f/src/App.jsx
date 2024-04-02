@@ -67,7 +67,7 @@ const SpotLightWithTarget = ({
   // LEVA controls setup
   const { lightColor, lightIntensity, lightAngle, lightPenumbra, position, targetPosition } = useControls("Spotlight", {
     lightColor: { value: color, label: 'Light Color' },
-    lightIntensity: { value: intensity, min: 0, max: 20, step: 0.1, label: 'Light Intensity' },
+    lightIntensity: { value: intensity, min: 0, max: 50, step: 0.1, label: 'Light Intensity' },
     lightAngle: { value: angle, min: 0, max: Math.PI, step: 0.01, label: 'Light Angle' },
     lightPenumbra: { value: penumbra, min: 0, max: 1, step: 0.01, label: 'Light Penumbra' },
     position: { value: initialPosition, label: 'Position', step: 0.1 },
@@ -189,18 +189,18 @@ const SpotLightWithTarget = ({
   position={[0, 0, 0]} 
   rotation={[0, -Math.PI / 6, 0]}
 />
-<SimpleTextModel model={'../models/About.glb'}  componentToShow={About} position = {[-2.863,4.025,1.705]} rotation = {[0,-0.543,0]}/>
+<SimpleTextModel model={'../models/About.glb'}  componentToShow={About} position = {[-2.379,4.465,0.709]} rotation = {[0,-0.543,0]}/>
 <SimpleSpotLightWithTarget
         initialPosition={[0.537,4.025,1.705]}
         initialTargetPosition = {[-6.662,4.324,-1.095]}
-        intensity={10}
+        intensity={20}
         color={'red'}
         angle={0.6}
         penumbra={1} 
         
         
       />
-<SimpleTextModel model = {'../models/Portfolio.glb'} componentToShow={Portfolio} position = {[1.082,2.495,-1.589]} rotation = {[3.14,-1.045,3.14]} />
+<SimpleTextModel model = {'../models/Portfolio.glb'} componentToShow={Portfolio} position = {[2.621,2.495,-0.489]} rotation = {[3.14,-1.045,3.14]} />
 <SimpleSpotLightWithTarget
         initialPosition={[1.382,2.895,1.111]}
         initialTargetPosition = {[17.881,1.795,-26.289]}
@@ -211,18 +211,27 @@ const SpotLightWithTarget = ({
         
         
       />
-<SimpleTextModel model = {'../models/Contact.glb'} componentToShow={Contact}  position = {[1.685,6.965,-1.829]} rotation = {[3.14,-1.037, 3.14]} />
+<SimpleTextModel model = {'../models/Contact.glb'} componentToShow={Contact}  position = {[3.059,6.965,-0.947]} rotation = {[3.14,-1.037, 3.14]} />
 <SimpleSpotLightWithTarget
         initialPosition={[1.537,7.724,3.105]}
         initialTargetPosition = {[49.236,11.425,-151.2]}
-        intensity={20}
+        intensity={40}
         color={'#2EDCDA'}
         angle={0.6}
         penumbra={1} 
         
         
       />
-    
+      <SimpleTextModel model = {'../models/William.glb'} canShowComponent = {false}  position = {[0,0,6.220]} rotation = {[0.04,-1.316,0.63]} scale = {[2,2,2]}/>
+      <SimpleTextModel model = {'../models/Wapniarek.glb'} canShowComponent = {false}  position = {[4.082,0,5.097]} rotation = {[0.035,-1.286,0.625]} scale = {[2,2,2]}/>
+      <SimpleSpotLightWithTarget
+        initialPosition={[2.8,5.3,9.8]}
+        initialTargetPosition = {[1.7,0.0,5.2]}
+        intensity={40}
+        color={'#00ffff'}
+        angle={0.6}
+        penumbra={1}
+      />
     </>
   )
 }
@@ -234,13 +243,16 @@ const App = () => {
   const hideOverlay = () => {
     setControlsEnabled(true); // Re-enable scene controls
     setIsOverlayVisible(false); // Hide the overlay
+    const parentContainer = document.querySelector('.parent-container');
   };
   
    // Adjust the pointer events on the canvas container based on controlsEnabled
    useEffect(() => {
     const canvasContainer = document.getElementById('canvas-container');
+    
     if (canvasContainer) {
       canvasContainer.style.pointerEvents = controlsEnabled ? 'auto' : 'none';
+      
     }
   }, [controlsEnabled]);
   return(
@@ -286,6 +298,8 @@ const DisplayedComponent = ({ hideOverlay, setControlsEnabled }) => {
     // Adjust pointer events and scene interaction based on visibility
     if (isVisible) {
       setControlsEnabled(false); // Disable scene interactions when overlay is visible
+      document.body.classList.add("scrollable");
+      document.body.classList.remove("notScrollable");
     }
   }, [isVisible, setControlsEnabled]);
 
@@ -299,6 +313,8 @@ const DisplayedComponent = ({ hideOverlay, setControlsEnabled }) => {
         // This code executes after the fade-out animation completes
         hideOverlay();  // Intended to re-enable scene controls
         hideComponent(); // Actually hides the overlay component
+        document.body.classList.remove("scrollable");
+        document.body.classList.add("notScrollable");
       }
     });
   };
