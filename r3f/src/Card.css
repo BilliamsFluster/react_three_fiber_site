@@ -1,25 +1,25 @@
 .portfolioSection {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Creates four columns */
-    gap: 20px; /* This is the space between the cards */
-    padding: 20px; /* Adds some padding around the grid */
-    justify-items: center; /* This centers the cards in their grid cells */
-    margin: 0 auto;
-    max-width: 50vw;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the start of the cross axis */
+  margin: 0 auto;
+  width: 50%; /* Adjust the width as needed */
+}
   
-  .card {
-    padding: 0;
-    perspective: 1000px;
-    width: 400px; /* Increased width */
-    height: 450px; /* New height */
-    margin: 0 auto; /* Center card if the column is wider */
-    background-color: #000000; /* Card background color */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Box shadow for depth */
-    overflow: hidden; /* Ensures no content spills out */
-    
-  }
+.card {
+  flex: 0 0 calc(33.333% - 40px); /* Do not grow or shrink, just set the basis */
+  margin-bottom: 20px; /* Consistent space between rows */
+  height: 400px;
+  background-color: #060c12;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  /* No need to set width or margin auto since flex-basis handles the size and gap + justify-content centers the items */
+}
+  
   
   .card-inner {
     position: relative;
@@ -44,11 +44,11 @@
   }
   
   .card-front {
-    background: #fff; /* Adjust if needed */
+    background-color: #060c12;
   }
   
   .card-back {
-    background: #fff; /* Adjust if needed */
+    background-color: #060c12;
     transform: rotateY(180deg);
   }
   
@@ -66,4 +66,81 @@
     border-top-right-radius: 10px;
   }
   
+.card-description{
+  font-size: 20px;
+}
+
+.card button{
+  background: #26427f;
+  font-family: "EB Garamond", serif;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.linkLogo{
+  filter: invert(33%) sepia(95%) saturate(748%) hue-rotate(183deg) brightness(90%) contrast(89%);
+  width: 40px;
+  height: 40px;
+  
+}
+
+.logoContainer{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+
+
+/* iphone*/
+@media only screen 
+  and (min-device-width: 393px) 
+  and (max-device-width: 852px) { 
+    .portfolioSection {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center;
+      align-items: flex-start; /* Align items at the start of the cross axis */
+      margin: 0 auto;
+      width: 80%; /* Adjust the width as needed */
+    }
+    .card {
+      flex: 0 0 calc(90% - 40px); /* Do not grow or shrink, just set the basis */
+      margin-bottom: 10px; /* Consistent space between rows */
+      height: 400px;
+      background-color: #060c12;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+  
+}
+
+/* ipad */
+@media only screen 
+  and (min-device-width: 830px) 
+  and (max-device-width: 1024px) {
+    .portfolioSection {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center;
+      align-items: flex-start; /* Align items at the start of the cross axis */
+      margin: 0 auto;
+      width: 60%; /* Adjust the width as needed */
+    }
+    .card {
+      flex: 0 0 calc(50% - 40px); /* Do not grow or shrink, just set the basis */
+      margin-bottom: 10px; /* Consistent space between rows */
+      height: 400px;
+      background-color: #060c12;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+  
+}
+
   

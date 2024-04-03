@@ -24,11 +24,24 @@ const CameraController = ({enableZoom = true}) => {
       camera.position.set(x, y, z);
       controls.update(); 
     };
-    setCameraPosition(1.705,8.6,9.381)
 
-    // Example of setting the camera to a specific position
-    // Uncomment the following line to set the camera position on component mount
-    // setCameraPosition(10, 10, 10);
+    const isMobile = () => {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+    if(isMobile())
+    {
+      setCameraPosition(5.308,8.143,16.736);
+      console.log("IOS");
+
+    }
+    else
+    {
+      setCameraPosition(1.705,8.6,9.381);
+      console.log('computer');
+
+    }
+
+    
 
     // Event listener to toggle control and log position
     const handleKeyDown = (event) => {

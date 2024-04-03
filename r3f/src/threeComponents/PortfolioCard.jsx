@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../Card.css" 
 
 // Card component
-const Card = ({ image, title, description, readMoreContent, links }) => {
+const Card = ({ image, title, description, readMoreContent, links, linkLogo }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   console.log("Rendering Card:", title); 
   const handleFlip = () => {
@@ -20,11 +20,16 @@ const Card = ({ image, title, description, readMoreContent, links }) => {
           
         </div>
         <div className="card-back">
+          <div className="logoContainer">
+            {links.map((link, index) => (
+              <a key={index} href={link.href} className="card-link" target="_blank" rel="noopener noreferrer">
+                <img key={index} src={linkLogo} alt="linkLogo" className="linkLogo" href = {link.href}/>
+              </a>
+            ))}
+
+          </div>
           <h3 className="card-title">{title}</h3>
           <p className="card-description">{readMoreContent}</p>
-          {links.map((link, index) => (
-            <a key={index} href={link.href} className="card-link">{link.text}</a>
-          ))}
           <button onClick={handleFlip} className="card-btn">Read Less</button>
         </div>
       </div>

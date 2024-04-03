@@ -82,37 +82,43 @@ const Portfolio = ({ hideOverlay }) => {
             <Card 
               image="../../static/Plugin.png"
               title="Visual Save - UE5 Plugin"
-              description="A innovate plugin for Urnreal Engine that uses steganography to encode Save Game data into images"
-              readMoreContent="Detailed information about project..."
-              links={[{ href: 'http://link-to-project.com', text: ' Link' }]}
+              description="A innovate plugin for Urnreal Engine that uses steganography to encode Save Game data into images."
+              readMoreContent="Click the market image on the top right of the card to view Visual Save on the Unreal Engine marketplace."
+              links={[{ href: 'https://www.unrealengine.com/marketplace/en-US/product/visual-save-plugin', text: ' Link' }]}
+              linkLogo={"../../static/Market.png"}
             />
             <Card 
               image="../../static/GameEngine.png"
               title="Blu - Game Engine"
               description="Explore BLU, my custom game engine in development, pushing the boundaries of game mechanics."
-              readMoreContent="Detailed information about project..."
-              links={[{ href: 'http://link-to-project.com', text: ' Link' }]}
+              readMoreContent="Click the github image on the top right of the card to view Blu on github."
+              links={[{ href: 'https://github.com/BilliamsFluster/Blu', text: ' Link' }]}
+              linkLogo={"../../static/Github.png"}
             />
             <Card 
               image="../../static/UnrealEngine.png"
               title="Survive The Enemies - Game"
               description="Battle relentless foes in a test of survival and combat skills."
-              readMoreContent="Detailed information about project..."
-              links={[{ href: 'http://link-to-project.com', text: ' Link' }]}
+              readMoreContent="Click the github image on the top right of the card to watch the demo video."
+              links={[{ href: 'https://youtu.be/qUgCkX0peI4', text: ' Link' }]}
+              linkLogo={"../../static/Youtube.png"}
+              
             />
             <Card 
               image="../../static/UnrealEngine.png"
               title="Ace Search - Game"
               description="Race against time to spot the elusive Ace among a cascade of cards, with each level bringing a new challenge."
-              readMoreContent="Detailed information about project..."
-              links={[{ href: 'http://link-to-project.com', text: ' Link' }]}
+              readMoreContent="Click the github image on the top right of the card to watch the demo video."
+              links={[{ href: 'https://youtu.be/deB4XpzX-nk', text: ' Link' }]}
+              linkLogo={"../../static/Youtube.png"}
             />
             <Card 
               image="../../static/UnrealEngine.png"
               title="The Heist - Game"
               description="Plan and execute a daring heist, testing your strategic prowess."
-              readMoreContent="Detailed information about project..."
-              links={[{ href: 'http://link-to-project.com', text: ' Link' }]}
+              readMoreContent="Click the github image on the top right of the card to watch the demo video."
+              links={[{ href: 'https://youtu.be/hHQ2jZc47iI', text: ' Link' }]}
+              linkLogo={"../../static/Youtube.png"}
             />
             {/* Repeat <Card /> for as many cards as you have */}
           </div>

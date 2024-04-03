@@ -222,7 +222,7 @@ const SpotLightWithTarget = ({
         
         
       />
-      <SimpleTextModel model = {'../models/William.glb'} canShowComponent = {false}  position = {[0,0,6.220]} rotation = {[0.04,-1.316,0.63]} scale = {[2,2,2]}/>
+      <SimpleTextModel model = {'../models/William.glb'}  canShowComponent = {false}  position = {[0,0,6.220]} rotation = {[0.04,-1.316,0.63]} scale = {[2,2,2]}/>
       <SimpleTextModel model = {'../models/Wapniarek.glb'} canShowComponent = {false}  position = {[4.082,0,5.097]} rotation = {[0.035,-1.286,0.625]} scale = {[2,2,2]}/>
       <SimpleSpotLightWithTarget
         initialPosition={[2.8,5.3,9.8]}
@@ -259,20 +259,9 @@ const App = () => {
     <>
       <div className='parent-container'>
         <DisplayProvider>
-
-        
-
         <div id = 'canvas-container'>
         <Canvas>
-          <Scene controlsEnabled={controlsEnabled}/>
-          
-          <NightTimeProcessing
-        nighttimeIntensity={0}
-        fogNear={0}
-        fogFar={0}
-        fogColor={"purple"}
-      />
-          
+          <Scene controlsEnabled={controlsEnabled}/> 
         </Canvas>
         </div>
         <DisplayedComponent 
@@ -281,10 +270,7 @@ const App = () => {
         isVisible={isOverlayVisible}/>
         </DisplayProvider>
       </div>
-      
-      
-      </>
-      
+      </>  
     )
 }
 

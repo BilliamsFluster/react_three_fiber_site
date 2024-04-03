@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+
 import { Canvas } from '@react-three/fiber'
 import SimpleModel from '../threeComponents/model';
 import { gsap } from 'gsap';
@@ -15,12 +16,6 @@ const About = ({ hideOverlay }) => {
   const aboutSectionRef = useRef(null);
   const { isVisible } = useDisplay(); // using context to check if the component is visible
   
-
-  
-
-
-
-
   useEffect(() => {
     // Example animation tied to the visibility of the section
     if (isVisible) {
@@ -71,14 +66,11 @@ const About = ({ hideOverlay }) => {
     <>
     
       <div className="page">
-        
         <button ref={buttonRef} onClick={hideOverlay}>
           <h1>WW</h1>
         </button>
-        
-
         <div className="Format">
-          <div className="Section" ref={aboutSectionRef}>
+          <div className="Section aboutSection" ref={aboutSectionRef}>
             <div className="aboutMe">
 
             
@@ -125,18 +117,20 @@ const About = ({ hideOverlay }) => {
             </div>
             
             </div>
-          </div>
-          <div className='aboutModel'>
+            <div className='aboutModel'>
             <Canvas style={{ width: '100%', height: '100%'}}>
               <CameraController enableZoom = {false}/>
-            <SimpleModel 
+            <SimpleModel
               model="../models/Laptop.glb"
-              
-              position={[0, 0, 0]} 
+              scale = {[1.5,1.5,1.5]}
+              position={[0, 0, 1]} 
               rotation={[0, -Math.PI / 1, 0]}
             />
             </Canvas>
           </div>
+          </div>
+            
+          
         </div>
       </div>
       
