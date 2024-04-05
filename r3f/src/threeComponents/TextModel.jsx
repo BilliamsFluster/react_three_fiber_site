@@ -4,7 +4,7 @@ import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { useDisplay } from './DisplayContextManager';
 
-const SimpleTextModel = ({ model, enableTransform = false, canShowComponent = true, componentToShow, ...props }) => {
+const SimpleTextModel = ({ model, enableTransform = false, canShowComponent = true, canHover = true, componentToShow, ...props }) => {
   const groupRef = useRef();
   const transformRef = useRef();
   const [mode, setMode] = useState('translate'); // State to track current mode
@@ -51,6 +51,7 @@ const SimpleTextModel = ({ model, enableTransform = false, canShowComponent = tr
         // Adjust material properties here
         child.material.metalness = 0.5;
         child.material.roughness = 0.5;
+        
         // Ensure materials are set to receive shadows
         child.castShadow = true;
         child.receiveShadow = true;
@@ -58,22 +59,36 @@ const SimpleTextModel = ({ model, enableTransform = false, canShowComponent = tr
     });
   }, [scene]);
 
-  // GSAP animation for hover effect
-  useEffect(() => {
-    groupRef.current.scale.set(1, 1, 1); // Reset scale for safety
-    const scaleUp = () => gsap.to(groupRef.current.scale, { duration: 0.5, x: 1.2, y: 1.2, z: 1.2 });
-    const scaleDown = () => gsap.to(groupRef.current.scale, { duration: 0.5, x: 1, y: 1, z: 1 });
+  if(canHover)
+  {
 
-    const object = groupRef.current;
-    object.onPointerOver = scaleUp;
-    console.log(groupRef.currentc)
-    object.onPointerOut = scaleDown;
-
-    return () => {
-      object.onPointerOver = null;
-      object.onPointerOut = null;
-    };
-  }, []);
+    // GSAP animation for hover effect
+    useEffect(() => {
+      groupRef.current.scale.set(1, 1, 1); // Reset scale for safety
+    
+      const canvas = document.querySelector('canvas'); 
+    
+      const scaleUp = () => {
+        gsap.to(groupRef.current.scale, { duration: 0.3, x: 1.1, y: 1.1, z: 1.1 });
+        if (canvas) canvas.style.cursor = 'pointer'; // Change the cursor to pointer
+      };
+    
+      const scaleDown = () => {
+        gsap.to(groupRef.current.scale, { duration: 0.3, x: 1, y: 1, z: 1 });
+        if (canvas) canvas.style.cursor = ''; // Revert the cursor style
+      };
+    
+      const object = groupRef.current;
+      object.onPointerOver = scaleUp;
+      object.onPointerOut = scaleDown;
+    
+      return () => {
+        object.onPointerOver = null;
+        object.onPointerOut = null;
+        if (canvas) canvas.style.cursor = ''; // Clean up: revert the cursor style
+      };
+    }, []);
+  }
 
   const handleTransformChange = useCallback((e) => {
     if(!groupRef.current) return;

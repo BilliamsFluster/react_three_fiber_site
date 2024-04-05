@@ -1,11 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber'
-import SimpleModel from '../threeComponents/model';
 import { gsap } from 'gsap';
 import { useDisplay } from '../threeComponents/DisplayContextManager';
-import TypingEffectParagraph from '../threeComponents/TypingText';
-import CameraController from '../threeComponents/SimpleCameraController';
-import Lenis from '@studio-freight/lenis';
 import ScrollTrigger from 'gsap/src/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -127,7 +122,7 @@ const Contact = ({ hideOverlay }) => {
                             <p>Questions? Reach out to me and i'll get back to you shortly</p> 
                             <div className='leftContactMail'>
                                 <a href="mailto:ww27hockey@icloud.com">
-                                    <img onMouseEnter={scaleUp} onMouseLeave={scaleDown} className='leftContactImages' src="../../static/Mail.png" alt="" />
+                                    <img onMouseEnter={scaleUp} onMouseLeave={scaleDown} className='leftContactImages' src="/static/Mail.png" alt="" />
                                 </a>
                                 <p> 
                                     <a href="mailto:ww27hockey@icloud.com">
@@ -137,7 +132,7 @@ const Contact = ({ hideOverlay }) => {
                             </div>
                             <div className='leftContactGithub'>
                                 <a href="https://github.com/BilliamsFluster">
-                                    <img onMouseEnter={scaleUp} onMouseLeave={scaleDown} className='leftContactImages' src="../../static/Github.png" alt="" />
+                                    <img onMouseEnter={scaleUp} onMouseLeave={scaleDown} className='leftContactImages' src="/static/Github.png" alt="" />
                                 </a>
                                 <p> 
                                     <a href="https://github.com/BilliamsFluster">
@@ -147,7 +142,7 @@ const Contact = ({ hideOverlay }) => {
                             </div>
                         </div>
                         <div className='rightContactSection' >
-                            <form className="contact-form" ref = {formRef} action="https://formsubmit.co/ww27hockey@icloud.com" method="POST">
+                            <form className="contact-form" ref = {formRef} action="https://formspree.io/f/xknekdrg" method="POST">
                                 <input type="text" id="name" name="name" placeholder="Your Name" required />
                                 <input type="email" id="email" name="email" placeholder="Your Email" required />
                                 <input type="text" id="subject" name="subject" placeholder="Your Subject" required />

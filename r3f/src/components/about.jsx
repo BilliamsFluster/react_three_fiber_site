@@ -1,12 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-
-import { Canvas } from '@react-three/fiber'
-import SimpleModel from '../threeComponents/model';
 import { gsap } from 'gsap';
 import { useDisplay } from '../threeComponents/DisplayContextManager';
-import TypingEffectParagraph from '../threeComponents/TypingText';
-import CameraController from '../threeComponents/SimpleCameraController';
-import Lenis from '@studio-freight/lenis';
 import ScrollTrigger from 'gsap/src/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,21 +9,43 @@ const About = ({ hideOverlay }) => {
   const buttonRef = useRef(null);
   const aboutSectionRef = useRef(null);
   const { isVisible } = useDisplay(); // using context to check if the component is visible
+  const isMobile = /Android|webOS|iPhone|iPad|iPad Pro|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isIpad = window.matchMedia("(min-device-width: 830px) and (max-device-width: 1024px)").matches;
   
   useEffect(() => {
     // Example animation tied to the visibility of the section
     if (isVisible) {
-      gsap.fromTo(aboutSectionRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power1.out" });
+
+      
+      
+        if (isMobile || isIpad) 
+        {
+          // Simpler animation for mobile devices
+          gsap.to('.page', { autoAlpha: isVisible ? 1 : 0, duration: 0.5 });
+        } else 
+        {
+          
+            const timeline = gsap.timeline({defaults: {duration: 1, ease: 'power2.out'}});
+            timeline
+              .fromTo('.page', {autoAlpha: 0, scale: 0.5}, {autoAlpha: 1, scale: 1})
+              .fromTo('.page', {rotationY: -90}, {rotationY: 0, ease: 'back.out(1.7)'}, '<')
+              .fromTo('.page *', {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, stagger: 0.1}, '-=0.5');
+
+          
+        }
     }
   }, [isVisible]);
   
 
+  if (isMobile || isIpad) 
+  {
+    useEffect(() => {
+      if (isVisible) {
+        gsap.fromTo(aboutSectionRef.current, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: 1 });
+      }
+    }, [isVisible]);
 
-  useEffect(() => {
-    if (isVisible) {
-      gsap.fromTo(aboutSectionRef.current, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: 1 });
-    }
-  }, [isVisible]);
+  }
   
   useEffect(() => {
     // Button hover animations
@@ -49,18 +65,23 @@ const About = ({ hideOverlay }) => {
     };
   }, []);
 
-  useEffect(() => {
-    // Only trigger the GSAP timeline when the section is visible
-    if (isVisible) {
-      const tl = gsap.timeline();
-      tl.fromTo(
-        aboutSectionRef.current, 
-        { autoAlpha: 0, y: 50 }, 
-        { autoAlpha: 1, y: 0, duration: 1, ease: "power1.out" }
-      );
-    }
-  }, [isVisible]); // Depend on isVisible to re-trigger the animation
+  if (isMobile || isIpad) 
+  {
+    useEffect(() => {
+      // Only trigger the GSAP timeline when the section is visible
+      if (isVisible) {
+        const tl = gsap.timeline();
+        tl.fromTo(
+          aboutSectionRef.current, 
+          { autoAlpha: 0, y: 50 }, 
+          { autoAlpha: 1, y: 0, duration: 1, ease: "power1.out" }
+        );
+      }
+    }, [isVisible]); // Depend on isVisible to re-trigger the animation*/
 
+  }
+  const scaleUp = (e) => gsap.to(e.currentTarget, { scale: 1.2, duration: 0.3 });
+ const scaleDown = (e) => gsap.to(e.currentTarget, { scale: 1, duration: 0.3 });
 
   return (
     <>
@@ -89,6 +110,12 @@ const About = ({ hideOverlay }) => {
               I just released a <b>innovative plugin for Unreal Engine</b>. The plugin is called <b>Visual Save</b> and its main purpose is to encode 
               Save Game data into images, allowing for players to load, share and save their progress via images.
             </p>
+            <a href="https://docs.google.com/document/d/12GtkKixHYPvFlJCWfXx_4etS_pKIu5v70eESW6R86J4/export?format=pdf" download title="Download Resume" className="resumeButton">
+              <button onMouseEnter={scaleUp} onMouseLeave={scaleDown}>
+                Download Resume
+              </button>
+            
+          </a>
             
           
             <p>Here are some of my skills</p>
@@ -118,15 +145,7 @@ const About = ({ hideOverlay }) => {
             
             </div>
             <div className='aboutModel'>
-            <Canvas style={{ width: '100%', height: '100%'}}>
-              <CameraController enableZoom = {false}/>
-            <SimpleModel
-              model="../models/Laptop.glb"
-              scale = {[1.5,1.5,1.5]}
-              position={[0, 0, 1]} 
-              rotation={[0, -Math.PI / 1, 0]}
-            />
-            </Canvas>
+              <img src="/static/Billy.png" alt="Billy" />
           </div>
           </div>
             

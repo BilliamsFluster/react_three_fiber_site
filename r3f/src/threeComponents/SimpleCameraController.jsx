@@ -12,6 +12,7 @@ const CameraController = ({enableZoom = true}) => {
     controls.maxDistance = 20;
     controls.enableZoom = enableZoom;
     controls.enabled = controlsEnabled; // Use the state to enable/disable
+    controls.enablePan = false;
 
     // Function to log the current camera position
     const logCameraPosition = () => {
