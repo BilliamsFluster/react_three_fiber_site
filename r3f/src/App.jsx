@@ -13,6 +13,7 @@ import { DisplayProvider, useDisplay } from './threeComponents/DisplayContextMan
 import Contact from './components/contact';
 import BloomFX from './threeComponents/BloomEffect';
 import SpotLightWithTarget from './threeComponents/spotLightHelper';
+import { AmbientLight } from 'three';
 
 
   
@@ -22,7 +23,7 @@ import SpotLightWithTarget from './threeComponents/spotLightHelper';
     <>
     
       <CameraController />
-
+      <ambientLight intensity={0.2} color={"#223344"} />
       <SimpleSpotLightWithTarget // light close
         initialPosition={[-0.12, 2.77, 3.16]}
         initialTargetPosition = {[2.202,-7.628,0.009]}
@@ -139,6 +140,8 @@ const App = () => {
         <div id = 'canvas-container'>
         <Canvas>
           <BloomFX/>
+          
+
           <Scene controlsEnabled={controlsEnabled}/> 
         </Canvas>
         </div>
