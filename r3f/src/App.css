@@ -141,6 +141,7 @@ html, body, #root .parent-container {
 .aboutSection{
   display: flex;
   padding-right: 10vw;
+  
 }
 
 .aboutSkills
@@ -148,13 +149,29 @@ html, body, #root .parent-container {
   display: flex;
   padding: 10px;
 }
+.aboutLeft{
+  width: 100%;
+  height: 100%;
+  
+}
+.aboutRight
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .aboutModel
 {
   width: 100%;
   height: 100%;
   padding-left:10px;
+  padding-bottom: 50vh;
   display: flex;
   justify-content:flex-start;
+  
+  
   
 }
 .aboutModel img{
@@ -162,6 +179,11 @@ html, body, #root .parent-container {
   width: 330px;
   height: 400px;
   
+}
+.aboutSkills{
+  
+  width: 100%;
+  height: 100%;
 }
 .resumeButton
 {
@@ -375,7 +397,7 @@ html, body, #root .parent-container {
   .aboutModel
   {
     
-    height: 80vh;
+    height: 100vh;
   }
   
 }

@@ -105,7 +105,7 @@ const Contact = ({ hideOverlay }) => {
         <div className="page">
             
             <button ref={buttonRef} onClick={hideOverlay}>
-            <h1>WW</h1>
+            <h1>Back</h1>
             </button>
             
             <div className="Format">
