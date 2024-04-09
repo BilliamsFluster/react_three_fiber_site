@@ -6,12 +6,12 @@ import Card from '../threeComponents/PortfolioCard';
 
 gsap.registerPlugin(ScrollTrigger); // Register ScrollTrigger plugin outside of the component
 
-const Portfolio = ({ hideOverlay }) => {
+const Portfolio = ({ hideOverlay, canShowAnimationComputer }) => {
   const buttonRef = useRef(null);
   const portfolioSectionRef = useRef(null);
   const { isVisible } = useDisplay();
   let tl = useRef(gsap.timeline({ paused: true })).current; // Store the timeline in a ref
-
+  
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const sectionEl = portfolioSectionRef.current;
@@ -55,6 +55,7 @@ const Portfolio = ({ hideOverlay }) => {
     };
   }, [isVisible]);
 
+
   useEffect(() => {
     const button = buttonRef.current;
     const scaleUp = () => gsap.to(button, { scale: 1.2, duration: 0.3 });
@@ -72,55 +73,66 @@ const Portfolio = ({ hideOverlay }) => {
   return (
     <div className="page">
       <button ref={buttonRef} onClick={hideOverlay}>
-        <h1>WW</h1>
+        <h1>Back  </h1>
       </button>
       <div className="Format">
         <div className="Section portfolioContainer" ref={portfolioSectionRef}>
           <h1><u>Portfolio</u></h1>
           <div className="portfolioSection">
-            
+          <Card 
+              image="/static/Website.png"
+              title="Portfolio Site"
+              description="Skills Developed: This Portfolio improved on my React, R3F(React-Three-Fiber), and javascript skills."
+              readMoreContent="Chalenges I Faced: Working with R3F is something I have never done before. This was blocking me from translating my ideas into reality. How I overcame this was to reach out for help, discord, youtube and the R3F docs really helped me 
+              become more proficent in R3F and front-end as a whole. Understanding the use of gsap and how it worked with R3F took some time as well. I wanted to make this site because I strive for creativity.
+              Making this website gave me a chance to be myself and let my creativity loose."
+              links={[{ href: 'https://bwap.netlify.app/', text: ' Link' }]}
+              linkLogo={"/static/Github.png"}
+              tooltip = {"View on Github"}
+            />
             <Card 
-              image="../../static/Plugin.png"
+            image="/static/Website.png"
+            title="Movie Site"
+            description="Skills Developed: This website taught me how to use an API to fetch movie data and use it in React."
+            readMoreContent="Challenges I Faced: Working on implementing the API to fetch movie data was something that I have not done before. Using react with this as well presented some difficulty in the beginning
+            Giving myself some time to look over documentation and draw out a plan to provide more clarity helped out a lot. Once I did all of this implementing the API with React was a lot easier and more efficent."
+            links={[{ href: 'https://github.com/BilliamsFluster/react_film_site', text: ' Link' }]}
+            linkLogo={"/static/Github.png"}
+            tooltip = {"View on Github"}
+          />
+            <Card 
+              image="/static/Plugin.png"
               title="Visual Save - UE5 Plugin"
-              description="A innovate plugin for Urnreal Engine that uses steganography to encode Save Game data into images."
-              readMoreContent="Click the market image on the top right of the card to view Visual Save on the Unreal Engine marketplace."
+              description="Skills Developed: Steganography with UE5, Slate, system desgn."
+              readMoreContent="Challenges I Faced: This plugin was actually a school project recommended by my professor. Since no one has done this project before documentation and help was very scarce.
+              What I did to overcome this was to break down the plugin into smaller chunks like the drag drop system, and the encoding and decoding of data. I then looked for relevant examples within the engine's soruce code 
+              to utilize and understand the classes neccessary to achieve this innovative plugin."
               links={[{ href: 'https://www.unrealengine.com/marketplace/en-US/product/visual-save-plugin', text: ' Link' }]}
-              linkLogo={"../../static/Market.png"}
+              linkLogo={"/static/Market.png"}
+              tooltip = {"View Visual Save on UE5 Marketplace"}
             />
             <Card 
-              image="../../static/GameEngine.png"
+              image="/static/GameEngine.png"
               title="Blu - Game Engine"
-              description="Explore BLU, my custom game engine in development, pushing the boundaries of game mechanics."
-              readMoreContent="Click the github image on the top right of the card to view Blu on github."
+              description="Skills Developed: Deeper understanding of low level system design and premake along with mono and C# integration. "
+              readMoreContent="Challenges I Faced: When planning out BLU planning the event system and the rendering system proved to be a challenge. These systems need to be extremely robust and efficent or else performance and quality will be comprimised.
+              How I over came these two obstacles was to break down what they were into smaller components.  I know that the event system need a way to dispatch, receive, and pass events through layers. This level of thinking 
+              helped me implement these systems into BLU."
               links={[{ href: 'https://github.com/BilliamsFluster/Blu', text: ' Link' }]}
-              linkLogo={"../../static/Github.png"}
+              linkLogo={"/static/Github.png"}
+              tooltip={" View BLU on Github"}
             />
             <Card 
-              image="../../static/UnrealEngine.png"
+              image="/static/UnrealEngine.png"
               title="Survive The Enemies - Game"
-              description="Battle relentless foes in a test of survival and combat skills."
-              readMoreContent="Click the github image on the top right of the card to watch the demo video."
+              description="Skills Developed: Enemy AI integration, inventory and locomotion system."
+              readMoreContent="Challenges I Faced: Implementing a different approach to the weapon system proved to be quite difficult at first. Instead of each weapon being its own actor I went with one main weapon 
+              pulling weapon data from a data table, pistol data, AR data etc. I implemented this system because it makes adding weapons in the future much more effient.
+              It simplifies the designers job when adding new features into the game."
               links={[{ href: 'https://youtu.be/qUgCkX0peI4', text: ' Link' }]}
-              linkLogo={"../../static/Youtube.png"}
-              
+              linkLogo={"/static/Youtube.png"}
+              tooltip={"View This Game on Youtube"}
             />
-            <Card 
-              image="../../static/UnrealEngine.png"
-              title="Ace Search - Game"
-              description="Race against time to spot the elusive Ace among a cascade of cards, with each level bringing a new challenge."
-              readMoreContent="Click the github image on the top right of the card to watch the demo video."
-              links={[{ href: 'https://youtu.be/deB4XpzX-nk', text: ' Link' }]}
-              linkLogo={"../../static/Youtube.png"}
-            />
-            <Card 
-              image="../../static/UnrealEngine.png"
-              title="The Heist - Game"
-              description="Plan and execute a daring heist, testing your strategic prowess."
-              readMoreContent="Click the github image on the top right of the card to watch the demo video."
-              links={[{ href: 'https://youtu.be/hHQ2jZc47iI', text: ' Link' }]}
-              linkLogo={"../../static/Youtube.png"}
-            />
-            {/* Repeat <Card /> for as many cards as you have */}
           </div>
         </div>
       </div>

@@ -133,7 +133,7 @@ html, body, #root .parent-container {
 }
 
 .aboutMe{
-  padding-top: 25vh;
+  padding-top: 15vh;
 }
 .Section b{
   color:cyan;
@@ -141,6 +141,7 @@ html, body, #root .parent-container {
 .aboutSection{
   display: flex;
   padding-right: 10vw;
+  
 }
 
 .aboutSkills
@@ -148,14 +149,53 @@ html, body, #root .parent-container {
   display: flex;
   padding: 10px;
 }
+.aboutLeft{
+  width: 100%;
+  height: 100%;
+  
+}
+.aboutRight
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .aboutModel
 {
-  width: 50%;
-  height: 50vh;
+  width: 100%;
+  height: 100%;
+  padding-left:10px;
+  padding-bottom: 50vh;
+  display: flex;
+  justify-content:flex-start;
+  
   
   
 }
+.aboutModel img{
+  
+  width: 330px;
+  height: 400px;
+  
+}
+.aboutSkills{
+  
+  width: 100%;
+  height: 100%;
+}
+.resumeButton
+{
+  text-decoration: none;
 
+}
+.resumeButton button{
+  font-family: "EB Garamond", serif;
+  font-size: inherit;
+  background-color: rgb(7, 185, 185);
+  border-radius: 5px;
+}
 .contactSection{
   display: flex;
   flex-direction: column;
@@ -333,6 +373,12 @@ html, body, #root .parent-container {
     {
       padding: 10px;
     }
+    .aboutModel img{
+  
+      width: 280px;
+      height: 330px;
+      
+    }
   
 }
 
@@ -348,5 +394,59 @@ html, body, #root .parent-container {
     .contactBox{
       display: flex;
   }
+  .aboutModel
+  {
+    
+    height: 100vh;
+  }
   
+}
+
+/* computer */
+@media (max-width: 900px)
+{
+  .Section
+    {
+      justify-content: center;
+      align-items: center;
+      
+      
+      width: 100%;
+      height:100%;
+    }
+
+    .Format{
+      width: 100%;
+      height: 100%;
+      
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0; 
+      padding: 0;
+      
+    }
+    .aboutSection{
+      display: block;
+      padding: 0;
+      
+    }
+    .contactBox
+    {
+      display: block;
+    }
+    .rightContactSection
+    {
+      padding: 0;
+    }
+    .aboutMe
+    {
+      padding: 10px;
+    }
+    .aboutModel img{
+  
+      width: 280px;
+      height: 330px;
+      
+    }
 }
