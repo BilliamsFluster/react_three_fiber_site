@@ -8,8 +8,8 @@ const CameraController = ({enableZoom = true}) => {
 
   useEffect(() => {
     const controls = new OrbitControls(camera, gl.domElement);
-    controls.minDistance = 5;
-    controls.maxDistance = 20;
+    controls.minDistance = 6.5;
+    controls.maxDistance = 28;
     controls.enableZoom = enableZoom;
     controls.enabled = controlsEnabled; // Use the state to enable/disable
     controls.enablePan = false;
@@ -31,13 +31,13 @@ const CameraController = ({enableZoom = true}) => {
     };
     if(isMobile())
     {
-      setCameraPosition(5.308,8.143,16.736);
+      setCameraPosition(6.25, 10.6, 19.8);
       console.log("IOS");
 
     }
     else
     {
-      setCameraPosition(1.705,8.6,9.381);
+      setCameraPosition(2.45, 9.4, 14.35);
       console.log('computer');
 
     }
