@@ -137,14 +137,23 @@ body {
 }
 
 .shad-scroll-area {
+  position: relative;
   height: 100%;
   overflow: hidden;
 }
 
 .shad-scroll-area__viewport {
-  height: 100%;
-  overflow-y: auto;
+  min-height: 100%;
   padding: clamp(1.5rem, 3vw, 2.25rem);
+  will-change: transform;
+}
+
+.shad-scroll-area:not([data-lenis='true']) .shad-scroll-area__viewport {
+  overflow-y: auto;
+}
+
+.shad-scroll-area[data-lenis='true'] .shad-scroll-area__viewport {
+  overflow: visible;
 }
 
 .shad-scroll-area__viewport::-webkit-scrollbar {
