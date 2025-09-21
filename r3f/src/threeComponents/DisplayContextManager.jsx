@@ -1,28 +1,52 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
-// Create Context
-const DisplayContext = createContext();
+const DisplayContext = createContext({
+  displayComponent: null,
+  showComponent: () => {},
+  hideComponent: () => {},
+  focusData: null,
+  isVisible: false,
+});
 
-// Hook for easy context consumption
 export const useDisplay = () => useContext(DisplayContext);
 
-// Provider Component
 export const DisplayProvider = ({ children }) => {
-    const [displayComponent, setDisplayComponent] = useState(null);
-    const [isVisible, setIsVisible] = useState(false); // Visibility state
-  
-    const showComponent = (component) => {
-      setDisplayComponent(() => component);
-      setIsVisible(true); // Show component
-    };
-  
-    const hideComponent = () => {
-      setIsVisible(false); // Hide component
-    };
-  
-    return (
-      <DisplayContext.Provider value={{ displayComponent, showComponent, isVisible, hideComponent }}>
-        {children}
-      </DisplayContext.Provider>
-    );
+  const [displayComponent, setDisplayComponent] = useState(null);
+  const [focusData, setFocusData] = useState(null);
+
+  const showComponent = (component, options = {}) => {
+    setDisplayComponent(() => component);
+    if (options && options.focus) {
+      const {
+        position = [0, 0, 0],
+        target = [0, 0, 0],
+        duration = 1.2,
+        easing = 'power3.out',
+      } = options.focus;
+      setFocusData({
+        position: [...position],
+        target: [...target],
+        duration: typeof duration === 'number' ? duration : 1.2,
+        easing: typeof easing === 'string' ? easing : 'power3.out',
+      });
+    }
   };
+
+  const hideComponent = () => {
+    setDisplayComponent(null);
+    setFocusData(null);
+  };
+
+  const value = useMemo(
+    () => ({
+      displayComponent,
+      showComponent,
+      hideComponent,
+      focusData,
+      isVisible: Boolean(displayComponent),
+    }),
+    [displayComponent, focusData]
+  );
+
+  return <DisplayContext.Provider value={value}>{children}</DisplayContext.Provider>;
+};

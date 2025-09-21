@@ -1,452 +1,477 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-html{
- 
+:root {
+  color-scheme: dark;
+  font-family: 'Space Grotesk', 'EB Garamond', serif;
+  background-color: #030712;
 }
-html, body, #root .parent-container { 
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.parent-container {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  
-  
-  
-  
-  
-  
+  color: #f8fafc;
+  background: transparent;
 }
-#canvas-container { /* This ID should be on the container element for your <Canvas> */
-  width: 100vw;
-  height: 100vh;
-  position: fixed; /* This positions it relative to the viewport */
-  
-  top: 0;
-  left: 0;
-  z-index: 1; /* Ensures it doesn't overlap UI elements like your parameter adjustment interface */
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(40, 82, 179, 0.25), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(139, 92, 246, 0.18), transparent 45%),
+    #030712;
+  overscroll-behavior: none;
 }
-.scrollable {
-  overflow-y: auto; /* Show scrollbar when overlay is active */
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-.notScrollable
-{
-  overflow: hidden;
-}
-/* Ensure the parent of Canvas and DisplayedComponent has a relative positioning */
+
 .parent-container {
   position: relative;
-  
-  
-}
-/* Customizes the whole scrollbar */
-::-webkit-scrollbar {
-  width: 16px; /* Width of the vertical scrollbar */
-  height: 16px; /* Height of the horizontal scrollbar */
+  overflow: hidden;
 }
 
-/* Customizes the track (background) of the scrollbar */
-::-webkit-scrollbar-track {
-  background: linear-gradient(to bottom, #333, #000000); /* Example gradient */
-  border-radius: 8px; /* Rounded corners for the track */
-}
-
-/* Customizes the handle (thumb) of the scrollbar */
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #0650f0, #3023ae); /* Example gradient */
-  border-radius: 8px; /* Rounded corners for the thumb */
-}
-
-/* Style for the overlay content */
-.overlay-content {
-  position: relative; /* Use fixed to ensure it covers the entire viewport */
-  
-  
+#canvas-container {
   width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* High z-index to ensure it's above everything else */
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 24px;
-  pointer-events: none; /* Start without interaction and enable when visible */
-  opacity: 0; /* Start fully transparent */
-  font-family: "EB Garamond", serif;
-  font-weight: 400;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-
-.page
-{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #09192E;
-  margin: 0; 
-  padding: 0;
-  
+.section-sheet__container {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
 }
 
-.page button{
-  background-color: transparent; 
-  color: white;
-  border: none;
+.section-sheet__container > * {
+  pointer-events: all;
 }
 
-
-
-.page button h1{
-  font-family: "Pacifico", cursive;
-  
-  
+.shad-sheet__overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(3, 7, 18, 0) 0%, rgba(3, 7, 18, 0.65) 60%, rgba(3, 7, 18, 0.85) 100%);
+  backdrop-filter: blur(2px);
+  z-index: 21;
 }
 
-.Format{
-  width: 100%;
-  height: 100%;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0; 
-  padding: 0;
-  
+@keyframes sheet-slide-in {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-.Section
-{
-  justify-content: center;
-  align-items: center;
-  padding-left: 25vw;
-  width: 100%;
-  height:100%;
-}
-.portfolioContainer{
-  
-  justify-content: center;
-  text-align:center;
-  
-  padding-left: 0vw;
-}
-
-.aboutMe{
-  padding-top: 15vh;
-}
-.Section b{
-  color:cyan;
-}
-.aboutSection{
-  display: flex;
-  padding-right: 10vw;
-  
-}
-
-.aboutSkills
-{
-  display: flex;
-  padding: 10px;
-}
-.aboutLeft{
-  width: 100%;
-  height: 100%;
-  
-}
-.aboutRight
-{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.aboutModel
-{
-  width: 100%;
-  height: 100%;
-  padding-left:10px;
-  padding-bottom: 50vh;
-  display: flex;
-  justify-content:flex-start;
-  
-  
-  
-}
-.aboutModel img{
-  
-  width: 330px;
-  height: 400px;
-  
-}
-.aboutSkills{
-  
-  width: 100%;
-  height: 100%;
-}
-.resumeButton
-{
-  text-decoration: none;
-
-}
-.resumeButton button{
-  font-family: "EB Garamond", serif;
-  font-size: inherit;
-  background-color: rgb(7, 185, 185);
-  border-radius: 5px;
-}
-.contactSection{
+.shad-sheet__panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(420px, 90vw);
+  background: rgba(9, 25, 46, 0.92);
+  backdrop-filter: blur(18px);
+  border-left: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: -18px 0 48px rgba(15, 23, 42, 0.45);
   display: flex;
   flex-direction: column;
+  animation: sheet-slide-in 0.4s ease forwards;
+  z-index: 22;
+}
+
+.shad-sheet__panel--right {
+  right: 0;
+}
+
+.shad-sheet__panel--left {
+  left: 0;
+}
+
+.shad-sheet__header,
+.shad-sheet__footer {
+  padding: 1.5rem 1.75rem 0;
+}
+
+.shad-sheet__footer {
+  margin-top: auto;
+  padding-bottom: 1.75rem;
+}
+
+.shad-sheet__title {
+  font-size: 1.65rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.shad-sheet__description {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.shad-sheet__close {
+  background: none;
+  border: none;
+  color: rgba(226, 232, 240, 0.75);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.shad-sheet__close:hover {
+  color: #f8fafc;
+}
+
+.shad-scroll-area {
+  height: 100%;
+  overflow: hidden;
+}
+
+.shad-scroll-area__viewport {
+  height: 100%;
+  overflow-y: auto;
+  padding: 1.75rem;
+}
+
+.shad-scroll-area__viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.shad-scroll-area__viewport::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.35);
+}
+
+.shad-scroll-area__viewport::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.6);
+  border-radius: 999px;
+}
+
+.shad-button {
+  display: inline-flex;
   align-items: center;
-  padding: 50px;
-  height: 100vh;
-  
-  
-  
-}
-.contactBox{
-  display: flex;
-  
-  height: 100%;
-}
-.leftContactSection{
-  display: block;
-}
-.rightContactSection{
-  display: block;
-  padding-left: 20px;
-  width: 100%;
-  
-  
-}
-.contactTitle{
   justify-content: center;
-  text-align: center;
-  width: 100%;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  letter-spacing: 0.01em;
 }
-.contactTitle h4{
-  color: #0650f0;
-  
+
+.shad-button--default {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+  color: #f8fafc;
+  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.35);
 }
-.contact-container h2,
-.contact-container h3 {
-  color: #fff; /* Replace with actual color codes */
+
+.shad-button--outline {
+  background: transparent;
+  color: #cbd5f5;
+  border: 1px solid rgba(148, 163, 184, 0.45);
 }
-.contact-form{
+
+.shad-button--ghost {
+  background: rgba(148, 163, 184, 0.12);
+  color: #f8fafc;
+}
+
+.shad-button:hover {
+  transform: translateY(-1px);
+}
+
+.shad-button--default:hover {
+  box-shadow: 0 18px 40px rgba(99, 102, 241, 0.45);
+}
+
+.shad-button--outline:hover {
+  border-color: rgba(226, 232, 240, 0.65);
+  color: #f8fafc;
+}
+
+.shad-button--ghost:hover {
+  background: rgba(148, 163, 184, 0.24);
+}
+
+.shad-button--md {
+  padding: 0.65rem 1.4rem;
+}
+
+.shad-button--sm {
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+}
+
+.shad-button--lg {
+  padding: 0.85rem 1.6rem;
+  font-size: 1rem;
+}
+
+.section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-height: 100%;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section-header__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.75);
+  margin: 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.section-lead {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(226, 232, 240, 0.8);
+  line-height: 1.6;
+}
+
+.section-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.section-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.55));
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1rem;
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 20px 45px rgba(8, 15, 35, 0.35);
+}
+
+.section-card__title {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.section-card__meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(148, 163, 184, 0.8);
+}
+
+.skill-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: rgba(59, 130, 246, 0.15);
+  color: #cbd5f5;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skill-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.skill-columns ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.skill-columns li {
+  font-size: 0.85rem;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.skill-columns li strong {
+  color: #60a5fa;
+  letter-spacing: 0.02em;
+}
+
+.about-portrait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, rgba(99, 102, 241, 0.35), rgba(15, 23, 42, 0.65));
+  border-radius: 1rem;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  padding: 1rem;
+}
+
+.about-portrait img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  filter: drop-shadow(0 18px 35px rgba(59, 130, 246, 0.25));
+}
+
+.projects-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(71, 85, 105, 0.35);
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.85), rgba(17, 24, 39, 0.6));
+  padding: 1.35rem;
+  box-shadow: 0 22px 45px rgba(8, 15, 35, 0.35);
+}
+
+.project-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-card__title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.project-card__tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.project-card__tag {
+  background: rgba(14, 165, 233, 0.16);
+  color: rgba(125, 211, 252, 0.95);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.project-card__body {
+  font-size: 0.9rem;
+  color: rgba(226, 232, 240, 0.82);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.project-card__footer {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.contact-panel {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.contact-links {
+  display: grid;
+  gap: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  background: rgba(15, 23, 42, 0.75);
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(226, 232, 240, 0.88);
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.contact-link:hover {
+  transform: translateX(4px);
+  color: #60a5fa;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-form label {
   display: block;
-  height: 100%;
-  width: 100%;
-  
-  
+  font-size: 0.8rem;
+  color: rgba(148, 163, 184, 0.8);
 }
 
 .contact-form input,
-.contact-form button,
 .contact-form textarea {
-  display: block;
-  /* Styles for the form fields */
-  margin-bottom: 15px;
-  color: white;
-  padding: 10px;
-  border: none;
-  font-size: 20px;
-  border-bottom: 2px solid;
-  border-radius: 5px;
   width: 100%;
-  padding-top: 30px;
-  background-color: transparent;
-  border-image: linear-gradient(to right, #4000ff, #011fff) 1;
-  resize: none;
-  
-  
-}
-.contact-form textarea::placeholder,
-.contact-form input::placeholder{
-  font-family: "EB Garamond", serif;
-  color: #0650f0;
-}
-.contact-form input:focus, .contact-form textarea:focus {
-  outline: 2px solid #0650f0; 
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  padding: 0.7rem 0.9rem;
+  color: #f8fafc;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-
-.contact-form button {
-  
-  /* Styles for the submit button */
-  background: #3023ae; 
-  font-family: "EB Garamond", serif;
-  
-  color: white;
-  border: none;
-  padding: 10px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100px;
-  
-  
-}
-.contact-form div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.leftContactSection div{
-  padding-top: 10px;
-  display: flex;
-
-  
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.8);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
-.leftContactMail{
-  
-  align-items: center;
-  font-size: 20px;
-  color: #4000ff;
- 
-}
-.leftContactMail a {
-  text-decoration: none; 
-  color: inherit; 
-}
-.leftContactGithub{
-  align-items: center;
-  font-size: 20px;
-  color: #4000ff;
-  
-}
-.leftContactGithub a {
-  text-decoration: none; 
-  color: inherit; 
+.contact-form textarea {
+  min-height: 140px;
+  resize: vertical;
 }
 
-.leftContactImages{
-  width: 35px;
-  height: 35px;
-  padding-right: 10px;
-  
-  
-}
-
-
-/* iphone*/
-@media only screen 
-  and (min-device-width: 393px) 
-  and (max-device-width: 852px) { 
-    .Section
-    {
-      justify-content: center;
-      align-items: center;
-      
-      
-      width: 100%;
-      height:100%;
-    }
-
-    .Format{
-      width: 100%;
-      height: 100%;
-      
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0; 
-      padding: 0;
-      
-    }
-    .aboutSection{
-      display: block;
-      padding: 0;
-      
-    }
-    .contactBox
-    {
-      display: block;
-    }
-    .rightContactSection
-    {
-      padding: 0;
-    }
-    .aboutMe
-    {
-      padding: 10px;
-    }
-    .aboutModel img{
-  
-      width: 280px;
-      height: 330px;
-      
-    }
-  
-}
-
-/* ipad */
-@media only screen 
-  and (min-device-width: 830px) 
-  and (max-device-width: 1024px) {
-    .aboutSection{
-      display: flex;
-      padding: 20px;
-      
-    }
-    .contactBox{
-      display: flex;
+@media (max-width: 640px) {
+  .section-title {
+    font-size: 1.6rem;
   }
-  .aboutModel
-  {
-    
-    height: 100vh;
+
+  .shad-sheet__panel {
+    width: 100vw;
   }
-  
-}
-
-/* computer */
-@media (max-width: 900px)
-{
-  .Section
-    {
-      justify-content: center;
-      align-items: center;
-      
-      
-      width: 100%;
-      height:100%;
-    }
-
-    .Format{
-      width: 100%;
-      height: 100%;
-      
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0; 
-      padding: 0;
-      
-    }
-    .aboutSection{
-      display: block;
-      padding: 0;
-      
-    }
-    .contactBox
-    {
-      display: block;
-    }
-    .rightContactSection
-    {
-      padding: 0;
-    }
-    .aboutMe
-    {
-      padding: 10px;
-    }
-    .aboutModel img{
-  
-      width: 280px;
-      height: 330px;
-      
-    }
 }
