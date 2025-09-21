@@ -171,7 +171,7 @@ const App = () => {
         <Canvas
           shadows
           dpr={[1, 2]}
-          camera={{ position: [0, 2.8, 7.2], fov: 45 }}
+          camera={{ position: [0, 4.2, 11.5], fov: 45 }}
           gl={{
             antialias: true,
             toneMapping: THREE.ACESFilmicToneMapping,
