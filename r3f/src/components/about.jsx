@@ -1,24 +1,33 @@
 import React from 'react';
 import Button from './ui/button';
 
-const frontEndSkills = [
-  { label: 'React', level: '☆☆☆☆' },
-  { label: 'React Three Fiber', level: '☆☆☆' },
-  { label: 'GSAP', level: '☆☆☆☆' },
-  { label: 'Three.js', level: '☆☆☆☆' },
-  { label: 'JavaScript', level: '☆☆☆☆' },
-  { label: 'TypeScript', level: '☆☆' },
-  { label: 'HTML & CSS', level: '☆☆☆☆' },
+const focusAreas = [
+  'Real-time market dashboards',
+  'AI-assisted user journeys',
+  'Secure brokerage integrations',
+  'Automation & testing'
 ];
 
-const gameDevSkills = [
-  { label: 'Unreal Engine 5', level: '☆☆☆☆' },
-  { label: 'C++', level: '☆☆☆☆☆' },
-  { label: 'C', level: '☆☆☆☆☆' },
-  { label: 'C#', level: '☆☆☆' },
-  { label: 'Computer Graphics', level: '☆☆' },
-  { label: 'Game Math & Physics', level: '☆☆☆' },
-  { label: 'AI Programming', level: '☆☆☆' },
+const skillColumns = [
+  {
+    title: 'Front-end',
+    items: ['React & Next.js', 'TypeScript & JavaScript', 'React Three Fiber / Three.js', 'GSAP animation systems', 'Responsive design systems'],
+  },
+  {
+    title: 'Back-end',
+    items: ['Node.js & Express APIs', 'FastAPI microservices', 'MongoDB & Mongoose', 'WebSockets & streaming data', 'OAuth 2.0 flows'],
+  },
+  {
+    title: 'Data & AI',
+    items: ['Python (pandas, NumPy)', 'AI/ML assisted product features', 'Speech recognition & TTS', 'Strategy & backtesting engines', 'Git-based collaboration'],
+  },
+];
+
+const impactHighlights = [
+  'Orchestrated a multi-service trading stack that links a Next.js UI, Node/Express API, and FastAPI trading engine for live execution.',
+  'Implemented Charles Schwab OAuth with AES-256-GCM token vaulting and broker account verification inside MongoDB pipelines.',
+  'Built a Jarvis voice assistant loop that streams SpeechRecognition into LLM prompts and TTS playback for hands-free trading.',
+  'Engineered a configurable backtesting and momentum strategy framework with ATR stops, slippage modelling, and performance metrics.',
 ];
 
 const About = ({ onClose }) => {
@@ -28,70 +37,69 @@ const About = ({ onClose }) => {
         <div className="section-header__meta">
           <div>
             <p className="section-eyebrow">About</p>
-            <h2 className="section-title">Engineering playful, technical experiences</h2>
+            <h2 className="section-title">Designing intelligent web products</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose}>
             Back to scene
           </Button>
         </div>
         <p className="section-lead">
-          I&apos;m William, a gameplay programmer and front-end developer who loves translating ideas into interactive
-          realities. I thrive when I can mix creative storytelling with reliable systems design to craft experiences that
-          feel polished, playful, and personal.
+          Full-stack junior developer experienced in building AI-driven trading platforms that blend real-time market
+          data, automated strategies, and voice-enabled assistants across modern web and Python services.
         </p>
       </div>
 
-      <div className="section-grid">
-        <div className="section-card">
-          <h3 className="section-card__title">What I&apos;m focused on</h3>
+      <div className="section-grid section-grid--about">
+        <div className="section-card section-card--primary">
+          <h3 className="section-card__title">How I build</h3>
           <p className="project-card__body">
-            I enjoy solving complex problems with a human touch. Whether it&apos;s prototyping a new mechanic, polishing
-            interface details, or optimising a pipeline, I love creating spaces where people feel curious and in control.
-            Recent work includes <strong>Visual Save</strong>, an Unreal Engine plugin that encodes save game data into
-            images so players can store and share their progress creatively.
+            I translate complex financial workflows into approachable web applications. My focus is pairing reliable
+            engineering practices with purposeful motion and storytelling, so every screen balances clarity, trust, and
+            delight.
           </p>
           <div className="skill-tag-list">
-            <span className="skill-tag">Gameplay Programming</span>
-            <span className="skill-tag">Front-End UI</span>
-            <span className="skill-tag">Technical Art</span>
-            <span className="skill-tag">Systems Design</span>
+            {focusAreas.map((area) => (
+              <span key={area} className="skill-tag">
+                {area}
+              </span>
+            ))}
           </div>
           <Button variant="default" asChild>
             <a href="https://docs.google.com/document/d/12GtkKixHYPvFlJCWfXx_4etS_pKIu5v70eESW6R86J4/export?format=pdf" download>
-              Download resume
+              Download résumé
             </a>
           </Button>
         </div>
 
         <div className="section-card">
+          <h3 className="section-card__title">Recent impact</h3>
+          <p className="section-card__meta">Stock Bot Web Application</p>
+          <ul className="section-list">
+            {impactHighlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="section-card">
           <h3 className="section-card__title">Skill snapshot</h3>
-          <p className="section-card__meta">A blend of web technology and game engine expertise.</p>
+          <p className="section-card__meta">Tooling I reach for when shaping web platforms.</p>
           <div className="skill-columns">
-            <ul>
-              <li>
-                <strong>Front-End</strong>
-              </li>
-              {frontEndSkills.map((skill) => (
-                <li key={skill.label}>
-                  {skill.label} – {skill.level}
+            {skillColumns.map((column) => (
+              <ul key={column.title}>
+                <li>
+                  <strong>{column.title}</strong>
                 </li>
-              ))}
-            </ul>
-            <ul>
-              <li>
-                <strong>Game Development</strong>
-              </li>
-              {gameDevSkills.map((skill) => (
-                <li key={skill.label}>
-                  {skill.label} – {skill.level}
-                </li>
-              ))}
-            </ul>
+                {column.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ))}
           </div>
         </div>
 
         <div className="section-card about-portrait">
-          <img src="/static/Billy.png" alt="William portrait" />
+          <img src="/static/Billy.png" alt="Portrait of William Wapniarek" />
         </div>
       </div>
     </div>
