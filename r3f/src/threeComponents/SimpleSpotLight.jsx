@@ -21,6 +21,11 @@ const SimpleSpotLightWithTarget = ({
     spotlight.position.set(...initialPosition);
     spotlight.angle = angle;
     spotlight.penumbra = penumbra;
+    spotlight.decay = 1.4;
+    spotlight.distance = 35;
+    spotlight.castShadow = true;
+    spotlight.shadow.bias = -0.001;
+    spotlight.shadow.mapSize.set(1024, 1024);
     spotlightRef.current = spotlight;
 
     // Create the target object and position it
@@ -52,7 +57,7 @@ const SimpleSpotLightWithTarget = ({
       scene.remove(target);
       gsap.killTweensOf(spotlight);
     };
-  }, [scene, initialPosition, initialTargetPosition, intensity, color, angle, penumbra]);
+  }, [scene, initialPosition, initialTargetPosition, intensity, color, angle, penumbra, canBlink]);
 
   return null; // This component does not render anything to the DOM itself
 };
