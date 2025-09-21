@@ -69,7 +69,7 @@ import * as THREE from 'three';
       />
 
       <SimpleModel
-        model={'/models/cyberScene.glb'}
+        model={'/models/cybermodel.glb'}
         position={[0, 0, 0]}
         rotation={[0, -Math.PI / 6, 0]}
         hdrSrc={'/hdris/SataraNight.hdr'}
