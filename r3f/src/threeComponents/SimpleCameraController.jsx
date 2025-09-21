@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useThree } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { gsap } from 'gsap';
 import * as THREE from 'three';
 import { useDisplay } from './DisplayContextManager';
 
@@ -10,10 +9,22 @@ const isMobileDevice = () =>
     navigator.userAgent
   );
 
+const defaultSmoothingLambda = 3.2;
+
+const computeSmoothingLambda = (duration = 1.2) => {
+  const safeDuration = Math.max(duration, 0.15);
+  const lambda = Math.log(20) / safeDuration;
+  return Number.isFinite(lambda) ? Math.max(lambda, defaultSmoothingLambda) : defaultSmoothingLambda;
+};
+
 const CameraController = ({ enableZoom = true }) => {
   const { camera, gl } = useThree();
   const controlsRef = useRef(null);
   const initialFocusRef = useRef(null);
+  const targetPositionRef = useRef(new THREE.Vector3());
+  const targetTargetRef = useRef(new THREE.Vector3());
+  const smoothingRef = useRef({ lambda: defaultSmoothingLambda });
+  const isInteractingRef = useRef(false);
   const { focusData } = useDisplay();
 
   useEffect(() => {
@@ -24,22 +35,42 @@ const CameraController = ({ enableZoom = true }) => {
     controls.maxDistance = 28;
     controls.enableZoom = enableZoom;
     controls.enablePan = false;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.rotateSpeed = 0.42;
+    controls.zoomSpeed = 0.7;
 
     const defaultTarget = new THREE.Vector3(-0.25, 3.5, 0);
     controls.target.copy(defaultTarget);
 
-    if (isMobileDevice()) {
-      camera.position.set(6.25, 10.6, 19.8);
-    } else {
-      camera.position.set(2.45, 9.4, 14.35);
-    }
+    const initialPosition = isMobileDevice()
+      ? new THREE.Vector3(6.25, 10.6, 19.8)
+      : new THREE.Vector3(2.45, 9.4, 14.35);
+
+    camera.position.copy(initialPosition);
 
     controls.update();
 
     initialFocusRef.current = {
-      position: camera.position.clone(),
-      target: controls.target.clone(),
+      position: initialPosition.clone(),
+      target: defaultTarget.clone(),
     };
+
+    targetPositionRef.current.copy(initialPosition);
+    targetTargetRef.current.copy(defaultTarget);
+
+    const handleInteractionStart = () => {
+      isInteractingRef.current = true;
+    };
+
+    const handleInteractionEnd = () => {
+      isInteractingRef.current = false;
+      targetPositionRef.current.copy(camera.position);
+      targetTargetRef.current.copy(controls.target);
+    };
+
+    controls.addEventListener('start', handleInteractionStart);
+    controls.addEventListener('end', handleInteractionEnd);
 
     const handleKeyDown = (event) => {
       if (event.key === 'l' || event.key === 'L') {
@@ -60,6 +91,8 @@ const CameraController = ({ enableZoom = true }) => {
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      controls.removeEventListener('start', handleInteractionStart);
+      controls.removeEventListener('end', handleInteractionEnd);
       controls.dispose();
       controlsRef.current = null;
     };
@@ -78,33 +111,45 @@ const CameraController = ({ enableZoom = true }) => {
           position: new THREE.Vector3(...focusData.position),
           target: new THREE.Vector3(...(focusData.target || focusData.position)),
           duration: focusData.duration ?? 1.2,
-          easing: focusData.easing ?? 'power3.out',
         }
       : {
           position: initialFocus.position.clone(),
           target: initialFocus.target.clone(),
           duration: 1.2,
-          easing: 'power3.out',
         };
 
-    gsap.to(camera.position, {
-      x: focus.position.x,
-      y: focus.position.y,
-      z: focus.position.z,
-      duration: focus.duration,
-      ease: focus.easing,
-      onUpdate: () => controls.update(),
-    });
+    targetPositionRef.current.copy(focus.position);
+    targetTargetRef.current.copy(focus.target);
+    smoothingRef.current.lambda = computeSmoothingLambda(focus.duration);
+    isInteractingRef.current = false;
+  }, [focusData]);
 
-    gsap.to(controls.target, {
-      x: focus.target.x,
-      y: focus.target.y,
-      z: focus.target.z,
-      duration: focus.duration,
-      ease: focus.easing,
-      onUpdate: () => controls.update(),
-    });
-  }, [focusData, camera]);
+  useFrame((_, delta) => {
+    const controls = controlsRef.current;
+
+    if (!controls) {
+      return;
+    }
+
+    if (!isInteractingRef.current) {
+      const lambda = smoothingRef.current.lambda;
+      const targetPosition = targetPositionRef.current;
+      const targetTarget = targetTargetRef.current;
+
+      camera.position.x = THREE.MathUtils.damp(camera.position.x, targetPosition.x, lambda, delta);
+      camera.position.y = THREE.MathUtils.damp(camera.position.y, targetPosition.y, lambda, delta);
+      camera.position.z = THREE.MathUtils.damp(camera.position.z, targetPosition.z, lambda, delta);
+
+      controls.target.x = THREE.MathUtils.damp(controls.target.x, targetTarget.x, lambda, delta);
+      controls.target.y = THREE.MathUtils.damp(controls.target.y, targetTarget.y, lambda, delta);
+      controls.target.z = THREE.MathUtils.damp(controls.target.z, targetTarget.z, lambda, delta);
+    } else {
+      targetPositionRef.current.copy(camera.position);
+      targetTargetRef.current.copy(controls.target);
+    }
+
+    controls.update();
+  });
 
   return null;
 };

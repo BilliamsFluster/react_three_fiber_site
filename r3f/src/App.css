@@ -147,6 +147,10 @@ body {
   padding: clamp(1.5rem, 3vw, 2.25rem);
 }
 
+.shad-scroll-area[data-lenis-enabled='true'] .shad-scroll-area__viewport {
+  will-change: transform;
+}
+
 .shad-scroll-area__viewport::-webkit-scrollbar {
   width: 8px;
 }
