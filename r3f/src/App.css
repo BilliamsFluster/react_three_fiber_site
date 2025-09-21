@@ -1,452 +1,500 @@
-
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-html{
- 
-}
-html, body, #root .parent-container { 
+html,
+body,
+#root,
+.parent-container {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  
-  
-  
-  
-  
-  
 }
-#canvas-container { /* This ID should be on the container element for your <Canvas> */
+
+body {
+  font-family: "EB Garamond", serif;
+  background-color: #010b1d;
+  color: #ffffff;
+}
+
+#canvas-container {
   width: 100vw;
   height: 100vh;
-  position: fixed; /* This positions it relative to the viewport */
-  
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1; /* Ensures it doesn't overlap UI elements like your parameter adjustment interface */
+  z-index: 1;
 }
+
 .scrollable {
-  overflow-y: auto; /* Show scrollbar when overlay is active */
+  overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
-.notScrollable
-{
+
+.notScrollable {
   overflow: hidden;
 }
-/* Ensure the parent of Canvas and DisplayedComponent has a relative positioning */
+
 .parent-container {
   position: relative;
-  
-  
 }
-/* Customizes the whole scrollbar */
+
 ::-webkit-scrollbar {
-  width: 16px; /* Width of the vertical scrollbar */
-  height: 16px; /* Height of the horizontal scrollbar */
+  width: 16px;
+  height: 16px;
 }
 
-/* Customizes the track (background) of the scrollbar */
 ::-webkit-scrollbar-track {
-  background: linear-gradient(to bottom, #333, #000000); /* Example gradient */
-  border-radius: 8px; /* Rounded corners for the track */
+  background: linear-gradient(to bottom, #333, #000000);
+  border-radius: 8px;
 }
 
-/* Customizes the handle (thumb) of the scrollbar */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #0650f0, #3023ae); /* Example gradient */
-  border-radius: 8px; /* Rounded corners for the thumb */
+  background: linear-gradient(to bottom, #0650f0, #3023ae);
+  border-radius: 8px;
 }
 
-/* Style for the overlay content */
 .overlay-content {
-  position: relative; /* Use fixed to ensure it covers the entire viewport */
-  
-  
+  position: fixed;
+  inset: 0;
   width: 100vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1000; /* High z-index to ensure it's above everything else */
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 24px;
-  pointer-events: none; /* Start without interaction and enable when visible */
-  opacity: 0; /* Start fully transparent */
+  align-items: flex-start;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background-color: rgba(3, 9, 23, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  color: #ffffff;
+  font-size: 1rem;
+  pointer-events: none;
+  opacity: 0;
+  overflow-y: auto;
   font-family: "EB Garamond", serif;
-  font-weight: 400;
 }
 
-
-.page
-{
+.page {
   position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #09192E;
-  margin: 0; 
-  padding: 0;
-  
-}
-
-.page button{
-  background-color: transparent; 
-  color: white;
-  border: none;
-}
-
-
-
-.page button h1{
-  font-family: "Pacifico", cursive;
-  
-  
-}
-
-.Format{
-  width: 100%;
-  height: 100%;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0; 
-  padding: 0;
-  
-}
-
-.Section
-{
-  justify-content: center;
-  align-items: center;
-  padding-left: 25vw;
-  width: 100%;
-  height:100%;
-}
-.portfolioContainer{
-  
-  justify-content: center;
-  text-align:center;
-  
-  padding-left: 0vw;
-}
-
-.aboutMe{
-  padding-top: 15vh;
-}
-.Section b{
-  color:cyan;
-}
-.aboutSection{
-  display: flex;
-  padding-right: 10vw;
-  
-}
-
-.aboutSkills
-{
-  display: flex;
-  padding: 10px;
-}
-.aboutLeft{
-  width: 100%;
-  height: 100%;
-  
-}
-.aboutRight
-{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.aboutModel
-{
-  width: 100%;
-  height: 100%;
-  padding-left:10px;
-  padding-bottom: 50vh;
-  display: flex;
-  justify-content:flex-start;
-  
-  
-  
-}
-.aboutModel img{
-  
-  width: 330px;
-  height: 400px;
-  
-}
-.aboutSkills{
-  
-  width: 100%;
-  height: 100%;
-}
-.resumeButton
-{
-  text-decoration: none;
-
-}
-.resumeButton button{
-  font-family: "EB Garamond", serif;
-  font-size: inherit;
-  background-color: rgb(7, 185, 185);
-  border-radius: 5px;
-}
-.contactSection{
+  width: min(1100px, 100%);
+  min-height: 70vh;
+  background-color: rgba(9, 25, 46, 0.92);
+  border-radius: 24px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin: 0 auto;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 50px;
-  height: 100vh;
-  
-  
-  
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
-.contactBox{
+
+.page > button {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.page > button h1 {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 0;
+}
+
+.Format {
+  width: 100%;
   display: flex;
-  
-  height: 100%;
-}
-.leftContactSection{
-  display: block;
-}
-.rightContactSection{
-  display: block;
-  padding-left: 20px;
-  width: 100%;
-  
-  
-}
-.contactTitle{
   justify-content: center;
-  text-align: center;
+}
+
+.Section {
   width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
-.contactTitle h4{
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.75rem;
+  color: #7aa6ff;
+}
+
+.aboutSection {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.75rem, 3vw, 3rem);
+  align-items: flex-start;
+}
+
+.aboutPrimary {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.aboutPrimary h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.aboutSummary {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #d6e4ff;
+  margin: 0;
+}
+
+.aboutPrimary p {
+  margin: 0;
+  color: #c7d6f7;
+  line-height: 1.7;
+}
+
+.aboutHighlights {
+  background: rgba(12, 33, 58, 0.75);
+  border: 1px solid rgba(46, 220, 218, 0.18);
+  border-radius: 18px;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.aboutHighlights h2 {
+  margin: 0;
+}
+
+.aboutHighlights ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.75rem;
+  color: #d6e4ff;
+  line-height: 1.55;
+}
+
+.aboutActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aboutActions p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #8fa9d6;
+}
+
+.resumeButton {
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.resumeButton button {
+  font-family: "EB Garamond", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2edcda, #0650f0);
+  border-radius: 999px;
+  border: none;
+  color: #ffffff;
+  padding: 0.75rem 1.75rem;
+  cursor: pointer;
+  box-shadow: 0 14px 35px rgba(6, 80, 240, 0.35);
+}
+
+.aboutSecondary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.aboutCard {
+  background: rgba(9, 25, 46, 0.85);
+  border: 1px solid rgba(46, 220, 218, 0.12);
+  border-radius: 18px;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.aboutCard h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.aboutCard ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.5rem;
+  color: #c7d6f7;
+  line-height: 1.55;
+}
+
+.aboutCard p {
+  margin: 0;
+  color: #d6e4ff;
+  line-height: 1.6;
+}
+
+.aboutSkillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.skillGroup h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  color: #7aa6ff;
+}
+
+.skillGroup ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+  color: #c7d6f7;
+}
+
+.aboutExperienceTitle {
+  font-weight: 600;
+  color: #2edcda;
+}
+
+.aboutPhotoCard {
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.aboutPhotoCard img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  border-radius: 18px;
+  object-fit: cover;
+  align-self: center;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.aboutEducation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.aboutEducation h2 {
+  margin: 0;
+}
+
+.aboutEducation p {
+  margin: 0;
+  color: #c7d6f7;
+}
+
+.portfolioContainer {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  text-align: left;
+}
+
+.portfolioContainer h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.portfolioIntro {
+  margin: 0;
+  max-width: 720px;
+  color: #d6e4ff;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.portfolioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.portfolioGroupHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.portfolioGroupHeader p {
+  margin: 0.35rem 0 0;
+  color: #8fa9d6;
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+.contactSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+}
+
+.contactBox {
+  display: flex;
+  gap: 2rem;
+}
+
+.leftContactSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 260px;
+}
+
+.rightContactSection {
+  flex: 1;
+}
+
+.contactTitle {
+  text-align: center;
+}
+
+.contactTitle h4 {
   color: #0650f0;
-  
+  margin-bottom: 0.35rem;
 }
+
 .contact-container h2,
 .contact-container h3 {
-  color: #fff; /* Replace with actual color codes */
+  color: #ffffff;
+  margin: 0;
 }
-.contact-form{
-  display: block;
-  height: 100%;
-  width: 100%;
-  
-  
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .contact-form input,
 .contact-form button,
 .contact-form textarea {
   display: block;
-  /* Styles for the form fields */
-  margin-bottom: 15px;
-  color: white;
-  padding: 10px;
+  color: #ffffff;
+  padding: 0.75rem;
   border: none;
-  font-size: 20px;
+  font-size: 1rem;
   border-bottom: 2px solid;
   border-radius: 5px;
   width: 100%;
-  padding-top: 30px;
   background-color: transparent;
   border-image: linear-gradient(to right, #4000ff, #011fff) 1;
   resize: none;
-  
-  
 }
+
 .contact-form textarea::placeholder,
-.contact-form input::placeholder{
+.contact-form input::placeholder {
   font-family: "EB Garamond", serif;
   color: #0650f0;
 }
-.contact-form input:focus, .contact-form textarea:focus {
-  outline: 2px solid #0650f0; 
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid #0650f0;
 }
-
-
 
 .contact-form button {
-  
-  /* Styles for the submit button */
-  background: #3023ae; 
+  background: #3023ae;
   font-family: "EB Garamond", serif;
-  
-  color: white;
+  color: #ffffff;
   border: none;
-  padding: 10px 10px;
+  padding: 0.6rem 1rem;
   border-radius: 5px;
   cursor: pointer;
-  width: 100px;
-  
-  
+  width: 120px;
+  align-self: center;
 }
-.contact-form div{
+
+.contact-form div {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
-.leftContactSection div{
-  padding-top: 10px;
+
+.leftContactSection div {
   display: flex;
-
-  
-}
-
-.leftContactMail{
-  
   align-items: center;
-  font-size: 20px;
+  gap: 0.75rem;
+}
+
+.leftContactMail,
+.leftContactGithub {
+  font-size: 1rem;
   color: #4000ff;
- 
 }
-.leftContactMail a {
-  text-decoration: none; 
-  color: inherit; 
-}
-.leftContactGithub{
-  align-items: center;
-  font-size: 20px;
-  color: #4000ff;
-  
-}
+
+.leftContactMail a,
 .leftContactGithub a {
-  text-decoration: none; 
-  color: inherit; 
+  text-decoration: none;
+  color: inherit;
 }
 
-.leftContactImages{
+.leftContactImages {
   width: 35px;
   height: 35px;
-  padding-right: 10px;
-  
-  
 }
 
-
-/* iphone*/
-@media only screen 
-  and (min-device-width: 393px) 
-  and (max-device-width: 852px) { 
-    .Section
-    {
-      justify-content: center;
-      align-items: center;
-      
-      
-      width: 100%;
-      height:100%;
-    }
-
-    .Format{
-      width: 100%;
-      height: 100%;
-      
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0; 
-      padding: 0;
-      
-    }
-    .aboutSection{
-      display: block;
-      padding: 0;
-      
-    }
-    .contactBox
-    {
-      display: block;
-    }
-    .rightContactSection
-    {
-      padding: 0;
-    }
-    .aboutMe
-    {
-      padding: 10px;
-    }
-    .aboutModel img{
-  
-      width: 280px;
-      height: 330px;
-      
-    }
-  
-}
-
-/* ipad */
-@media only screen 
-  and (min-device-width: 830px) 
-  and (max-device-width: 1024px) {
-    .aboutSection{
-      display: flex;
-      padding: 20px;
-      
-    }
-    .contactBox{
-      display: flex;
+@media (max-width: 1024px) {
+  .aboutSection {
+    grid-template-columns: 1fr;
   }
-  .aboutModel
-  {
-    
-    height: 100vh;
+
+  .aboutSecondary {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
-  
 }
 
-/* computer */
-@media (max-width: 900px)
-{
-  .Section
-    {
-      justify-content: center;
-      align-items: center;
-      
-      
-      width: 100%;
-      height:100%;
-    }
+@media (max-width: 900px) {
+  .page {
+    padding: clamp(1.25rem, 6vw, 2.25rem);
+  }
 
-    .Format{
-      width: 100%;
-      height: 100%;
-      
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0; 
-      padding: 0;
-      
-    }
-    .aboutSection{
-      display: block;
-      padding: 0;
-      
-    }
-    .contactBox
-    {
-      display: block;
-    }
-    .rightContactSection
-    {
-      padding: 0;
-    }
-    .aboutMe
-    {
-      padding: 10px;
-    }
-    .aboutModel img{
-  
-      width: 280px;
-      height: 330px;
-      
-    }
+  .portfolioGroupHeader p {
+    max-width: 100%;
+  }
+
+  .contactBox {
+    flex-direction: column;
+  }
+
+  .rightContactSection {
+    padding-left: 0;
+  }
 }
+
+@media (max-width: 600px) {
+  .overlay-content {
+    padding: 1.25rem;
+  }
+
+  .page {
+    border-radius: 18px;
+  }
+
+  .aboutHighlights ul,
+  .aboutCard ul {
+    padding-left: 1rem;
+  }
+
+  .leftContactSection {
+    max-width: none;
+  }
+}
+
