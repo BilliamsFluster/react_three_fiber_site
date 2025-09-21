@@ -31,15 +31,20 @@ const useLenisSmoothScroll = (ref, enabled, dependencyKey) => {
     viewport.style.overflowY = 'visible';
     wrapper.dataset.lenisEnabled = 'true';
 
+    const isTouchDevice =
+      window.matchMedia('(pointer: coarse)').matches ||
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0;
+
     const lenis = new Lenis({
       wrapper,
       content: viewport,
-      lerp: 0.085,
+      lerp: isTouchDevice ? 0.12 : 0.085,
       smoothWheel: true,
-      smoothTouch: false,
-      syncTouch: true,
-      touchMultiplier: 1.25,
-      wheelMultiplier: 0.95,
+      smoothTouch: isTouchDevice,
+      syncTouch: isTouchDevice ? false : true,
+      touchMultiplier: isTouchDevice ? 0.9 : 1.25,
+      wheelMultiplier: isTouchDevice ? 1 : 0.95,
     });
 
     let frameRequest = null;
