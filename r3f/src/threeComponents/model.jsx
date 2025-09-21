@@ -18,10 +18,12 @@ const SimpleModel = ({ model, enableTransform = false, hdrSrc, ...props }) => {
     // Apply material adjustments and shadows to the loaded model
     loadedScene.traverse((child) => {
       if (child.isMesh) {
-        child.material.metalness = 0.5;
-        child.material.roughness = 0.5;
+        child.material.metalness = 0.4;
+        child.material.roughness = 0.45;
+        child.material.envMapIntensity = 1.1;
         child.castShadow = true;
         child.receiveShadow = true;
+        child.material.needsUpdate = true;
       }
     });
   }, [loadedScene]);
