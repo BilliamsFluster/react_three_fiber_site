@@ -1,0 +1,27 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" rx="32" fill="url(#bg)" />
+  <circle cx="400" cy="180" r="220" fill="url(#glow)" />
+  <rect x="120" y="120" width="560" height="300" rx="28" fill="rgba(17, 24, 39, 0.82)" stroke="rgba(244, 114, 182, 0.55)" stroke-width="2" />
+  <g transform="translate(180,190)" font-family="'Space Grotesk', sans-serif" fill="#fdf4ff">
+    <text x="0" y="0" font-size="32" font-weight="600">Immersive Portfolio World</text>
+    <text x="0" y="38" font-size="20" fill="rgba(224, 231, 255, 0.85)">3D storytelling layered with motion design.</text>
+  </g>
+  <g transform="translate(180,260)" font-family="'Space Grotesk', sans-serif" font-size="18" fill="#bae6fd">
+    <text x="0" y="0">• React Three Fiber hero scene</text>
+    <text x="0" y="32">• Cinematic lighting & shaders</text>
+    <text x="0" y="64">• Scroll-triggered GSAP beats</text>
+  </g>
+  <text x="120" y="460" font-family="'Space Grotesk', sans-serif" font-size="18" fill="rgba(196, 181, 253, 0.75)">
+    Swap this placeholder by saving a screenshot to /public/static/portfolio/immersive-portfolio-preview.svg
+  </text>
+</svg>
