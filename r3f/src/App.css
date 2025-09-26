@@ -388,6 +388,45 @@ body {
   filter: drop-shadow(0 18px 35px rgba(59, 130, 246, 0.25));
 }
 
+.project-stack-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-stack-list__item {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.9rem;
+  padding: 1rem 1.1rem;
+  background: rgba(15, 23, 42, 0.6);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.project-stack-list__heading h4 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.project-stack-list__heading p {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(148, 163, 184, 0.8);
+}
+
+.project-stack-list__item ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.project-stack-list__item li::marker {
+  color: rgba(59, 130, 246, 0.8);
+}
+
 .projects-grid {
   display: grid;
   gap: 1.2rem;
@@ -396,6 +435,10 @@ body {
 
 .projects-grid--supporting {
   gap: 1.35rem;
+}
+
+.projects-grid--feature {
+  gap: 1.5rem;
 }
 
 .works-section {
@@ -426,6 +469,37 @@ body {
   border-color: rgba(59, 130, 246, 0.4);
   background: linear-gradient(170deg, rgba(30, 64, 175, 0.32), rgba(15, 23, 42, 0.78));
   box-shadow: 0 28px 55px rgba(30, 64, 175, 0.35);
+}
+
+.project-card--spotlight {
+  display: grid;
+  grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-color: rgba(59, 130, 246, 0.4);
+  background: linear-gradient(170deg, rgba(30, 64, 175, 0.28), rgba(15, 23, 42, 0.82));
+}
+
+.project-card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.75);
+  min-height: 160px;
+}
+
+.project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .project-card__header {
@@ -476,6 +550,25 @@ body {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.portfolio-plan {
+  background: linear-gradient(160deg, rgba(37, 99, 235, 0.18), rgba(15, 23, 42, 0.7));
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 1rem;
+  padding: 1.35rem 1.5rem;
+  display: grid;
+  gap: 0.8rem;
+  box-shadow: 0 24px 45px rgba(15, 23, 42, 0.38);
+}
+
+.portfolio-plan__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: rgba(226, 232, 240, 0.85);
 }
 
 .contact-panel {
@@ -557,5 +650,13 @@ body {
 
   .shad-scroll-area__viewport {
     padding: 1.5rem;
+  }
+
+  .project-card--spotlight {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card__media {
+    min-height: 180px;
   }
 }

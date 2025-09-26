@@ -30,6 +30,24 @@ const impactHighlights = [
   'Engineered a configurable backtesting and momentum strategy framework with ATR stops, slippage modelling, and performance metrics.',
 ];
 
+const projectStacks = [
+  {
+    name: 'Prime Pastures Meat',
+    focus: 'Farm-to-table subscriptions and seasonal product drops.',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Sanity CMS', 'Stripe Checkout'],
+  },
+  {
+    name: 'Stock Bot Web Application',
+    focus: 'Voice-assisted trading cockpit with real-time analytics.',
+    stack: ['Next.js', 'Express', 'FastAPI', 'MongoDB', 'LLMs'],
+  },
+  {
+    name: 'Immersive Portfolio World',
+    focus: 'React Three Fiber scene paired with GSAP storytelling.',
+    stack: ['React', 'React Three Fiber', 'Three.js', 'GSAP', 'Vite'],
+  },
+];
+
 const About = ({ onClose }) => {
   return (
     <div className="section-wrapper">
@@ -94,6 +112,26 @@ const About = ({ onClose }) => {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+            ))}
+          </div>
+        </div>
+
+        <div className="section-card">
+          <h3 className="section-card__title">Frameworks per showcase</h3>
+          <p className="section-card__meta">Where each live site in the portfolio draws its power.</p>
+          <div className="project-stack-list">
+            {projectStacks.map((project) => (
+              <div key={project.name} className="project-stack-list__item">
+                <div className="project-stack-list__heading">
+                  <h4>{project.name}</h4>
+                  <p>{project.focus}</p>
+                </div>
+                <ul>
+                  {project.stack.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>

@@ -1,0 +1,32 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#113a2c" />
+      <stop offset="100%" stop-color="#2b6e38" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#facc15" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+    <clipPath id="window">
+      <rect x="60" y="80" width="680" height="340" rx="26" />
+    </clipPath>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)" rx="32" />
+  <rect x="30" y="40" width="740" height="420" rx="30" fill="rgba(15,23,42,0.8)" stroke="rgba(226,232,240,0.2)" stroke-width="2" />
+  <g clip-path="url(#window)">
+    <rect x="60" y="80" width="680" height="220" fill="#0f172a" />
+    <rect x="60" y="300" width="680" height="120" fill="#f1f5f9" opacity="0.1" />
+    <path d="M60 260 Q 160 220 260 240 T 460 230 T 740 250 L 740 300 L 60 300 Z" fill="url(#accent)" opacity="0.85" />
+    <g fill="#f8fafc" font-family="'Space Grotesk', sans-serif" font-weight="600">
+      <text x="100" y="160" font-size="36">Prime Pastures Meat</text>
+      <text x="100" y="205" font-size="20" opacity="0.75">Farm-to-table storefront & subscription boxes</text>
+    </g>
+    <g fill="#bbf7d0" font-family="'EB Garamond', serif" font-size="26" font-weight="500">
+      <text x="100" y="360">Locally raised, responsibly sourced.</text>
+    </g>
+  </g>
+  <g fill="#bbf7d0" opacity="0.85" font-family="'Space Grotesk', sans-serif" font-size="18">
+    <text x="60" y="460">Drop in your own screenshot at /public/static/portfolio/primepastures-preview.svg</text>
+  </g>
+</svg>

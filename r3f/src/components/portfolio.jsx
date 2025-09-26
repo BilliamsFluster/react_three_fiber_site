@@ -1,54 +1,58 @@
 import React from 'react';
 import Button from './ui/button';
 
-const featuredWorks = [
+const planOfAttack = [
+  'Drop a fresh screenshot into /public/static/portfolio and update the filename in the portfolioWorks array.',
+  'Add a new object to the portfolioWorks array with the title, live URL, summary, and highlight bullets.',
+  'Optionally pair it with a secondary link (case study, repo, or brief) so prospects can dive deeper.',
+];
+
+const portfolioWorks = [
+  {
+    title: 'Prime Pastures Meat',
+    role: 'Farm-to-table eCommerce storefront',
+    summary:
+      'Direct-to-consumer experience for a regenerative farm co-op featuring subscription boxes, seasonal drops, and story-driven merchandising.',
+    highlights: [
+      'Crafted conversion-focused landing flows that surface sourcing standards, fulfilment windows, and bundle savings.',
+      'Synced product data, add-to-cart states, and waitlists so the team can manage inventory surges without developer intervention.',
+      'Wove brand photography with earthy gradients for a premium but grounded feel that mirrors the in-person farm tour.',
+    ],
+    image: '/static/portfolio/primepastures-preview.svg',
+    links: [{ label: 'Visit website', href: 'https://primepasturesmeat.com/', variant: 'default' }],
+  },
   {
     title: 'Stock Bot Web Application',
+    role: 'AI-assisted trading platform',
     summary:
-      'AI-assisted trading platform that combines a Next.js front-end, Node/Express orchestration layer, and a Python trading engine.',
+      'Unified trading cockpit where equities data, broker operations, and a Jarvis-style voice assistant sit behind one responsive interface.',
     highlights: [
-      'Unified real-time market data, automated strategies, and broker operations into a single portfolio dashboard.',
-      'Delivered Schwab OAuth onboarding with AES-256-GCM token storage and brokerage account verification using Mongoose hooks.',
-      'Built a Jarvis voice assistant loop that streams SpeechRecognition into LLM prompts and TTS playback for hands-free trade execution.',
-      'Shipped a backtesting toolkit with momentum strategies, ATR-based risk controls, and slippage modelling for accurate performance insights.',
+      'Streams real-time quotes, automated strategies, and alerts into a single watchlist that syncs across desktop and mobile sessions.',
+      'Secures brokerage access with Schwab OAuth, encrypted token vaulting, and verification routines that reduce onboarding friction.',
+      'Pairs LLM prompts with speech recognition and text-to-speech so traders can run backtests or place trades without touching the keyboard.',
     ],
-    stack: ['Next.js', 'Express', 'FastAPI', 'MongoDB', 'WebSockets', 'LLMs', 'GSAP'],
+    image: '/static/portfolio/stockbot-preview.svg',
     links: [
+      { label: 'Visit website', href: 'https://stock-bot.dev/', variant: 'default' },
       {
-        label: 'View architecture notes',
+        label: 'Read architecture notes',
         href: 'https://docs.google.com/document/d/12GtkKixHYPvFlJCWfXx_4etS_pKIu5v70eESW6R86J4',
-        variant: 'default',
+        variant: 'outline',
       },
     ],
   },
-];
-
-const supportingProjects = [
   {
-    title: 'Immersive Portfolio',
-    description:
-      'Interactive personal site where visitors explore projects inside a playable React Three Fiber world layered with GSAP storytelling.',
-    impact:
-      'Reinforced my ability to blend creative direction, shader-driven visuals, and accessible UI states within a single codebase.',
-    stack: ['React', 'React Three Fiber', 'GSAP'],
-    links: [{ label: 'Visit site', href: 'https://bwap.netlify.app/', variant: 'default' }],
-  },
-  {
-    title: 'Film Explorer',
-    description:
-      'Responsive web app that surfaces curated watchlists by orchestrating third-party film APIs with debounced search and filter states.',
-    impact: 'Showcased pragmatic data modelling, resilient error states, and reusable UI primitives for content-heavy experiences.',
-    stack: ['React', 'REST APIs', 'CSS Modules'],
-    links: [{ label: 'View GitHub', href: 'https://github.com/BilliamsFluster/react_film_site', variant: 'outline' }],
-  },
-  {
-    title: 'Strategy Sandbox',
-    description:
-      'Configurable analysis suite that lets traders prototype momentum ideas, tweak ATR-based stops, and visualise returns before deploying.',
-    impact:
-      'Extended my backtesting engine with reusable hooks, clear data visualisation contracts, and export-ready performance reports.',
-    stack: ['Python', 'FastAPI', 'pandas', 'NumPy'],
-    links: [{ label: 'Explore code', href: 'https://github.com/BilliamsFluster/strategy-sandbox', variant: 'outline' }],
+    title: 'Immersive Portfolio World',
+    role: 'Interactive 3D showcase',
+    summary:
+      'Playable React Three Fiber experience that introduces my services through cinematic lighting, guided camera paths, and responsive UI overlays.',
+    highlights: [
+      'Balances performant shaders, bloom, and post-processing with accessibility-minded controls and focus states.',
+      'Coordinates GSAP timelines with scroll cues so each section reveals context and calls-to-action at the right pace.',
+      'Bundles all data-driven sections—About, Portfolio, Contact—into JSON-friendly arrays for rapid content refreshes.',
+    ],
+    image: '/static/portfolio/immersive-portfolio-preview.svg',
+    links: [{ label: 'Visit website', href: 'https://bwap.netlify.app/', variant: 'default' }],
   },
 ];
 
@@ -66,76 +70,54 @@ const Portfolio = ({ onClose }) => {
           </Button>
         </div>
         <p className="section-lead">
-          A collection of web-first builds that highlight how I design, integrate, and ship full-stack experiences. Each
-          project is structured to make future iterations simple to add—drop a new card into the data arrays and it will
-          slot neatly into the layout.
+          A collection of web-first builds that highlight how I design, integrate, and ship full-stack experiences. The plan
+          below shows exactly how to plug in new client work: provide the URL, a short description, three punchy highlights,
+          and a screenshot.
         </p>
       </div>
 
-      <section className="works-section">
-        <header className="section-subheader">
-          <h3 className="section-subtitle">Featured work</h3>
-          <p className="section-card__meta">Deep dives into end-to-end product deliveries.</p>
-        </header>
-        <div className="featured-works">
-          {featuredWorks.map((work) => (
-            <article key={work.title} className="project-card project-card--featured">
-              <div className="project-card__header">
-                <h3 className="project-card__title">{work.title}</h3>
-                <div className="project-card__tags">
-                  {work.stack.map((tag) => (
-                    <span key={tag} className="project-card__tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <p className="project-card__body">{work.summary}</p>
-              <ul className="project-card__list">
-                {work.highlights.map((highlight) => (
-                  <li key={highlight}>{highlight}</li>
-                ))}
-              </ul>
-              <div className="project-card__footer">
-                {work.links.map((link) => (
-                  <Button key={link.href} variant={link.variant} size="sm" asChild>
-                    <a href={link.href} target="_blank" rel="noreferrer">
-                      {link.label}
-                    </a>
-                  </Button>
-                ))}
-              </div>
-            </article>
+      <section className="portfolio-plan">
+        <h3 className="section-subtitle">Plan of attack for new showcases</h3>
+        <ol className="portfolio-plan__list">
+          {planOfAttack.map((step) => (
+            <li key={step}>{step}</li>
           ))}
-        </div>
+        </ol>
       </section>
 
       <section className="works-section">
         <header className="section-subheader">
-          <h3 className="section-subtitle">Additional builds</h3>
-          <p className="section-card__meta">Compact snapshots that show range across the stack.</p>
+          <h3 className="section-subtitle">Live web builds</h3>
+          <p className="section-card__meta">Each card pairs a live link with context and visuals for clients.</p>
         </header>
-        <div className="projects-grid projects-grid--supporting">
-          {supportingProjects.map((project) => (
-            <article key={project.title} className="project-card">
-              <h3 className="project-card__title">{project.title}</h3>
-              <p className="project-card__body">{project.description}</p>
-              <p className="section-card__meta">{project.impact}</p>
-              <div className="project-card__tags">
-                {project.stack.map((tag) => (
-                  <span key={tag} className="project-card__tag">
-                    {tag}
-                  </span>
-                ))}
+        <div className="projects-grid projects-grid--feature">
+          {portfolioWorks.map((work) => (
+            <article key={work.title} className="project-card project-card--spotlight">
+              <div className="project-card__media">
+                <img src={work.image} alt={`${work.title} website preview`} />
               </div>
-              <div className="project-card__footer">
-                {project.links.map((link) => (
-                  <Button key={link.href} variant={link.variant} size="sm" asChild>
-                    <a href={link.href} target="_blank" rel="noreferrer">
-                      {link.label}
-                    </a>
-                  </Button>
-                ))}
+              <div className="project-card__content">
+                <div className="project-card__header">
+                  <div>
+                    <h3 className="project-card__title">{work.title}</h3>
+                    <p className="section-card__meta">{work.role}</p>
+                  </div>
+                </div>
+                <p className="project-card__body">{work.summary}</p>
+                <ul className="project-card__list">
+                  {work.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+                <div className="project-card__footer">
+                  {work.links.map((link) => (
+                    <Button key={link.href} variant={link.variant} size="sm" asChild>
+                      <a href={link.href} target="_blank" rel="noreferrer">
+                        {link.label}
+                      </a>
+                    </Button>
+                  ))}
+                </div>
               </div>
             </article>
           ))}
