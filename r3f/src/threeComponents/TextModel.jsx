@@ -58,34 +58,50 @@ const SimpleTextModel = ({
     });
   }, [scene]);
 
-  if (canHover) {
-    useEffect(() => {
-      if (!groupRef.current) return;
+  useEffect(() => {
+    if (!groupRef.current || canHover) return;
 
-      groupRef.current.scale.set(1, 1, 1);
-      const canvas = document.querySelector('canvas');
+    groupRef.current.scale.set(1, 1, 1);
+    if (gl?.domElement) {
+      gl.domElement.style.cursor = '';
+    }
+  }, [canHover, gl]);
 
-      const scaleUp = () => {
-        gsap.to(groupRef.current.scale, { duration: 0.3, x: 1.1, y: 1.1, z: 1.1 });
-        if (canvas) canvas.style.cursor = 'pointer';
-      };
+  useEffect(
+    () => () => {
+      if (groupRef.current) {
+        groupRef.current.scale.set(1, 1, 1);
+      }
+      if (gl?.domElement) {
+        gl.domElement.style.cursor = '';
+      }
+    },
+    [gl]
+  );
 
-      const scaleDown = () => {
-        gsap.to(groupRef.current.scale, { duration: 0.3, x: 1, y: 1, z: 1 });
-        if (canvas) canvas.style.cursor = '';
-      };
+  const handlePointerOver = useCallback(
+    (event) => {
+      if (!canHover || !groupRef.current) return;
+      event.stopPropagation();
+      gsap.to(groupRef.current.scale, { duration: 0.3, x: 1.1, y: 1.1, z: 1.1 });
+      if (gl?.domElement) {
+        gl.domElement.style.cursor = 'pointer';
+      }
+    },
+    [canHover, gl]
+  );
 
-      const object = groupRef.current;
-      object.onPointerOver = scaleUp;
-      object.onPointerOut = scaleDown;
-
-      return () => {
-        object.onPointerOver = null;
-        object.onPointerOut = null;
-        if (canvas) canvas.style.cursor = '';
-      };
-    }, []);
-  }
+  const handlePointerOut = useCallback(
+    (event) => {
+      if (!canHover || !groupRef.current) return;
+      event.stopPropagation();
+      gsap.to(groupRef.current.scale, { duration: 0.3, x: 1, y: 1, z: 1 });
+      if (gl?.domElement) {
+        gl.domElement.style.cursor = '';
+      }
+    },
+    [canHover, gl]
+  );
 
   const handleTransformChange = useCallback(() => {
     if (!groupRef.current) return;
@@ -140,14 +156,8 @@ const SimpleTextModel = ({
             object={scene}
             ref={groupRef}
             {...props}
-            onPointerOver={(e) => {
-              e.stopPropagation();
-              groupRef.current.onPointerOver();
-            }}
-            onPointerOut={(e) => {
-              e.stopPropagation();
-              groupRef.current.onPointerOut();
-            }}
+            onPointerOver={canHover ? handlePointerOver : undefined}
+            onPointerOut={canHover ? handlePointerOut : undefined}
           />
         </TransformControls>
       )}
@@ -156,14 +166,8 @@ const SimpleTextModel = ({
           object={scene}
           ref={groupRef}
           {...props}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            groupRef.current.onPointerOver();
-          }}
-          onPointerOut={(e) => {
-            e.stopPropagation();
-            groupRef.current.onPointerOut();
-          }}
+          onPointerOver={canHover ? handlePointerOver : undefined}
+          onPointerOut={canHover ? handlePointerOut : undefined}
           onClick={handleClick}
         />
       )}

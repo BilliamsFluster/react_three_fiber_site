@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
-import { Color, Fog } from 'three';
+import { Color } from 'three';
 import { useThree } from '@react-three/fiber';
 import { ContactShadows, Environment, Float, Sparkles, Stars } from '@react-three/drei';
-import LocalFog from './LocalFog';
+
 
 const SceneEnhancements = () => {
   const { scene } = useThree();
 
   useEffect(() => {
     const previousBackground = scene.background;
-    const fog = new Fog('#040714', 10, 55);
 
-    scene.fog = fog;
+    
     scene.background = new Color('#02040b');
 
     return () => {
-      scene.fog = null;
       scene.background = previousBackground;
     };
   }, [scene]);
@@ -40,15 +38,7 @@ const SceneEnhancements = () => {
         speed={0.2}
         opacity={0.75}
       />
-      <LocalFog position={[0.5, 0.75, 0]} size={[12, 2.5, 12]} opacity={0.55} heightFalloff={2.8} noiseScale={0.18} />
-      <LocalFog
-        position={[-2.5, 0.65, 3.1]}
-        size={[6.5, 2.2, 5.5]}
-        color="#22324a"
-        opacity={0.42}
-        noiseScale={0.3}
-        speed={0.08}
-      />
+      
       <group position={[0, -0.05, 0]}>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]} receiveShadow>
           <planeGeometry args={[60, 60]} />
