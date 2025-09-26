@@ -273,11 +273,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.section-grid--about {
-  grid-auto-rows: 1fr;
-  align-items: stretch;
-}
-
 .section-card {
   background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.55));
   border: 1px solid rgba(148, 163, 184, 0.18);
@@ -335,6 +330,55 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.about-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'portrait'
+    'build'
+    'impact'
+    'skill'
+    'frameworks';
+}
+
+.about-grid__portrait {
+  grid-area: portrait;
+}
+
+.about-grid__build {
+  grid-area: build;
+}
+
+.about-grid__impact {
+  grid-area: impact;
+}
+
+.about-grid__skill {
+  grid-area: skill;
+}
+
+.about-grid__frameworks {
+  grid-area: frameworks;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'build portrait'
+      'skill impact'
+      'frameworks frameworks';
+    align-items: start;
+  }
 }
 
 .skill-columns {
@@ -429,8 +473,8 @@ body {
 
 .projects-grid {
   display: grid;
-  gap: 1.2rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
 }
 
 .projects-grid--supporting {
@@ -472,8 +516,8 @@ body {
 }
 
 .project-card--spotlight {
-  display: grid;
-  grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
   padding: 1.5rem;
   border-color: rgba(59, 130, 246, 0.4);
@@ -486,12 +530,11 @@ body {
   border-radius: 0.85rem;
   border: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(15, 23, 42, 0.75);
-  min-height: 160px;
 }
 
 .project-card__media img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
 }
@@ -550,25 +593,6 @@ body {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
-}
-
-.portfolio-plan {
-  background: linear-gradient(160deg, rgba(37, 99, 235, 0.18), rgba(15, 23, 42, 0.7));
-  border: 1px solid rgba(59, 130, 246, 0.35);
-  border-radius: 1rem;
-  padding: 1.35rem 1.5rem;
-  display: grid;
-  gap: 0.8rem;
-  box-shadow: 0 24px 45px rgba(15, 23, 42, 0.38);
-}
-
-.portfolio-plan__list {
-  margin: 0;
-  padding-left: 1.25rem;
-  display: grid;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-  color: rgba(226, 232, 240, 0.85);
 }
 
 .contact-panel {

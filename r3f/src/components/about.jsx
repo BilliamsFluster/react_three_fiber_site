@@ -67,8 +67,12 @@ const About = ({ onClose }) => {
         </p>
       </div>
 
-      <div className="section-grid section-grid--about">
-        <div className="section-card section-card--primary">
+      <div className="about-grid">
+        <div className="section-card about-portrait about-grid__portrait">
+          <img src="/static/Billy.png" alt="Portrait of William Wapniarek" />
+        </div>
+
+        <div className="section-card section-card--primary about-grid__build">
           <h3 className="section-card__title">How I build</h3>
           <p className="project-card__body">
             I translate complex financial workflows into approachable web applications. My focus is pairing reliable
@@ -89,7 +93,7 @@ const About = ({ onClose }) => {
           </Button>
         </div>
 
-        <div className="section-card">
+        <div className="section-card about-grid__impact">
           <h3 className="section-card__title">Recent impact</h3>
           <p className="section-card__meta">Stock Bot Web Application</p>
           <ul className="section-list">
@@ -99,7 +103,7 @@ const About = ({ onClose }) => {
           </ul>
         </div>
 
-        <div className="section-card">
+        <div className="section-card about-grid__skill">
           <h3 className="section-card__title">Skill snapshot</h3>
           <p className="section-card__meta">Tooling I reach for when shaping web platforms.</p>
           <div className="skill-columns">
@@ -116,7 +120,7 @@ const About = ({ onClose }) => {
           </div>
         </div>
 
-        <div className="section-card">
+        <div className="section-card about-grid__frameworks">
           <h3 className="section-card__title">Frameworks per showcase</h3>
           <p className="section-card__meta">Where each live site in the portfolio draws its power.</p>
           <div className="project-stack-list">
@@ -134,10 +138,6 @@ const About = ({ onClose }) => {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="section-card about-portrait">
-          <img src="/static/Billy.png" alt="Portrait of William Wapniarek" />
         </div>
       </div>
     </div>

@@ -1,12 +1,6 @@
 import React from 'react';
 import Button from './ui/button';
 
-const planOfAttack = [
-  'Drop a fresh screenshot into /public/static/portfolio and update the filename in the portfolioWorks array.',
-  'Add a new object to the portfolioWorks array with the title, live URL, summary, and highlight bullets.',
-  'Optionally pair it with a secondary link (case study, repo, or brief) so prospects can dive deeper.',
-];
-
 const portfolioWorks = [
   {
     title: 'Prime Pastures Meat',
@@ -70,20 +64,10 @@ const Portfolio = ({ onClose }) => {
           </Button>
         </div>
         <p className="section-lead">
-          A collection of web-first builds that highlight how I design, integrate, and ship full-stack experiences. The plan
-          below shows exactly how to plug in new client work: provide the URL, a short description, three punchy highlights,
-          and a screenshot.
+          A collection of web-first builds that highlight how I design, integrate, and ship full-stack experiences. Each
+          showcase pairs visuals with the exact impact delivered so new prospects can explore how I solve their challenges.
         </p>
       </div>
-
-      <section className="portfolio-plan">
-        <h3 className="section-subtitle">Plan of attack for new showcases</h3>
-        <ol className="portfolio-plan__list">
-          {planOfAttack.map((step) => (
-            <li key={step}>{step}</li>
-          ))}
-        </ol>
-      </section>
 
       <section className="works-section">
         <header className="section-subheader">
