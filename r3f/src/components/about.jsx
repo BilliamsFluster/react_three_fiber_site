@@ -2,10 +2,10 @@ import React from 'react';
 import Button from './ui/button';
 
 const focusAreas = [
-  'Real-time market dashboards',
-  'AI-assisted user journeys',
-  'Secure brokerage integrations',
-  'Automation & testing'
+  'Full-stack web development',
+  'Interactive user experiences',
+  'Scalable and secure applications',
+  'Automation & performance testing'
 ];
 
 const skillColumns = [
@@ -30,23 +30,7 @@ const impactHighlights = [
   'Engineered a configurable backtesting and momentum strategy framework with ATR stops, slippage modelling, and performance metrics.',
 ];
 
-const projectStacks = [
-  {
-    name: 'Prime Pastures Meat',
-    focus: 'Farm-to-table subscriptions and seasonal product drops.',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Sanity CMS', 'Stripe Checkout'],
-  },
-  {
-    name: 'Stock Bot Web Application',
-    focus: 'Voice-assisted trading cockpit with real-time analytics.',
-    stack: ['Next.js', 'Express', 'FastAPI', 'MongoDB', 'LLMs'],
-  },
-  {
-    name: 'Immersive Portfolio World',
-    focus: 'React Three Fiber scene paired with GSAP storytelling.',
-    stack: ['React', 'React Three Fiber', 'Three.js', 'GSAP', 'Vite'],
-  },
-];
+
 
 const About = ({ onClose }) => {
   return (
@@ -75,9 +59,8 @@ const About = ({ onClose }) => {
         <div className="section-card section-card--primary about-grid__build">
           <h3 className="section-card__title">How I build</h3>
           <p className="project-card__body">
-            I translate complex financial workflows into approachable web applications. My focus is pairing reliable
-            engineering practices with purposeful motion and storytelling, so every screen balances clarity, trust, and
-            delight.
+            I help businesses bring their ideas online with websites that are clear and reliable. 
+            Every project is designed to feel effortless for users while adding a touch of delight.
           </p>
           <div className="skill-tag-list">
             {focusAreas.map((area) => (
@@ -87,7 +70,7 @@ const About = ({ onClose }) => {
             ))}
           </div>
           <Button variant="default" asChild>
-            <a href="https://docs.google.com/document/d/12GtkKixHYPvFlJCWfXx_4etS_pKIu5v70eESW6R86J4/export?format=pdf" download>
+            <a href="https://docs.google.com/document/d/1xmEIh_jZ6M6SeDKoXav5kSFSmiLzM3DvIL4KsYkykyA/export?format=pdf" download>
               Download résumé
             </a>
           </Button>
@@ -120,25 +103,7 @@ const About = ({ onClose }) => {
           </div>
         </div>
 
-        <div className="section-card about-grid__frameworks">
-          <h3 className="section-card__title">Frameworks per showcase</h3>
-          <p className="section-card__meta">Where each live site in the portfolio draws its power.</p>
-          <div className="project-stack-list">
-            {projectStacks.map((project) => (
-              <div key={project.name} className="project-stack-list__item">
-                <div className="project-stack-list__heading">
-                  <h4>{project.name}</h4>
-                  <p>{project.focus}</p>
-                </div>
-                <ul>
-                  {project.stack.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+        
       </div>
     </div>
   );

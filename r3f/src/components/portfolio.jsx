@@ -4,17 +4,18 @@ import Button from './ui/button';
 const portfolioWorks = [
   {
     title: 'Prime Pastures Meat',
-    role: 'Farm-to-table eCommerce storefront',
+    role: 'Business website',
     summary:
-      'Direct-to-consumer experience for a regenerative farm co-op featuring subscription boxes, seasonal drops, and story-driven merchandising.',
+      'Customer-facing site for a regenerative farm co-op, built to showcase seasonal offerings, provide pickup details, and connect the community with the farm’s values.',
     highlights: [
-      'Crafted conversion-focused landing flows that surface sourcing standards, fulfilment windows, and bundle savings.',
-      'Synced product data, add-to-cart states, and waitlists so the team can manage inventory surges without developer intervention.',
-      'Wove brand photography with earthy gradients for a premium but grounded feel that mirrors the in-person farm tour.',
+      'Designed clear flows that highlight product availability, pickup windows, and subscription options.',
+      'Structured content so staff can update seasonal offerings and announcements without dev involvement.',
+      'Blended photography, natural tones, and modern layout to reflect the farm’s premium yet approachable identity.',
     ],
-    image: '/static/portfolio/primepastures-preview.svg',
-    links: [{ label: 'Visit website', href: 'https://primepasturesmeat.com/', variant: 'default' }],
+    image: '/static/PrimePastures.png',
+    links: [{ label: 'Visit site', href: 'https://primepasturesmeat.com/', variant: 'default' }],
   },
+
   {
     title: 'Stock Bot Web Application',
     role: 'AI-assisted trading platform',
@@ -25,29 +26,26 @@ const portfolioWorks = [
       'Secures brokerage access with Schwab OAuth, encrypted token vaulting, and verification routines that reduce onboarding friction.',
       'Pairs LLM prompts with speech recognition and text-to-speech so traders can run backtests or place trades without touching the keyboard.',
     ],
-    image: '/static/portfolio/stockbot-preview.svg',
+    image: 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFoZHlpeWl2NXBwajRueHprd256Mm10dDloN3dqOWFic3czanlzciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/N6YZ7FuLTeTHxm9wd7/giphy.gif',
     links: [
-      { label: 'Visit website', href: 'https://stock-bot.dev/', variant: 'default' },
-      {
-        label: 'Read architecture notes',
-        href: 'https://docs.google.com/document/d/12GtkKixHYPvFlJCWfXx_4etS_pKIu5v70eESW6R86J4',
-        variant: 'outline',
-      },
+      { label: 'Visit github', href: 'https://github.com/BilliamsFluster/StockBotWebApp', variant: 'default' }
+      
     ],
   },
   {
-    title: 'Immersive Portfolio World',
-    role: 'Interactive 3D showcase',
+    title: 'Pinnacle Gaming Studios',
+    role: 'Game studio website',
     summary:
-      'Playable React Three Fiber experience that introduces my services through cinematic lighting, guided camera paths, and responsive UI overlays.',
+      'Official company site for Pinnacle Gaming Studios, an indie team building a post-apocalyptic survival RPG in Unreal Engine 5. The site introduces the studio, upcoming projects, and team roles through immersive visuals and interactive motion design.',
     highlights: [
-      'Balances performant shaders, bloom, and post-processing with accessibility-minded controls and focus states.',
-      'Coordinates GSAP timelines with scroll cues so each section reveals context and calls-to-action at the right pace.',
-      'Bundles all data-driven sections—About, Portfolio, Contact—into JSON-friendly arrays for rapid content refreshes.',
+      'Developed an interactive landing page with cinematic transitions and layered video backgrounds to reflect the studio’s narrative focus.',
+      'Implemented scroll-based GSAP animations and guided camera paths that give the site a polished, game-inspired flow.',
+      'Structured content for games, team members, and updates in a modular, data-driven format for easy refresh and scalability.',
     ],
-    image: '/static/portfolio/immersive-portfolio-preview.svg',
-    links: [{ label: 'Visit website', href: 'https://bwap.netlify.app/', variant: 'default' }],
-  },
+    image: '/static/PinnacleGamingStudios.png',
+    links: [{ label: 'Visit website', href: 'https://pinnaclegamingstudios.netlify.app/', variant: 'default' }],
+  }
+
 ];
 
 const Portfolio = ({ onClose }) => {

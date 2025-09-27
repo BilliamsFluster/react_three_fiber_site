@@ -29,7 +29,7 @@ const CameraController = ({ enableZoom = true }) => {
     controls.target.copy(defaultTarget);
 
     if (isMobileDevice()) {
-      camera.position.set(6.25, 10.6, 19.8);
+      camera.position.set(8.25, 12.6, 24.8);
     } else {
       camera.position.set(2.45, 9.4, 14.35);
     }
